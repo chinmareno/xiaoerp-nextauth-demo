@@ -20,19 +20,20 @@ export const LanguageSelector = ({
   setSelectedLanguage,
 }: Props) => {
   return (
-    <Menubar className="border-none bg-transparent">
+    <Menubar className="border-none bg-transparent shadow-none">
       <MenubarMenu>
         <MenubarTrigger asChild>
-          <Button className="gap-2 rounded-full bg-zinc-200 text-black hover:cursor-pointer hover:bg-zinc-300">
+          <Button className="gap-2 rounded-full border-none bg-transparent text-black shadow-none hover:cursor-pointer hover:bg-zinc-200">
             <Globe />
             {selectedLanguage?.code}
           </Button>
         </MenubarTrigger>
         <MenubarContent align="end">
-          {languages.map((language) => (
+          {languages.map((language, index) => (
             <>
               <MenubarItem
-                key={language.code}
+                key={language.code + index}
+                className="hover:cursor-pointer"
                 onClick={() => {
                   setSelectedLanguage(language);
                 }}

@@ -27,7 +27,7 @@ export const Navbar = () => {
           <div className="flex justify-end">
             <Button
               variant="outline"
-              className="hidden hover:cursor-pointer sm:inline-flex"
+              className="hidden border-none bg-transparent shadow-none hover:cursor-pointer hover:text-zinc-600 sm:inline-flex"
             >
               Login
             </Button>

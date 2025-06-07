@@ -91,7 +91,7 @@ export const ModulesOverview = () => {
           {modules.map((module, index) => (
             <Card
               key={index}
-              className="group border-border transition-all duration-300 hover:shadow-lg"
+              className="group border-border flex bg-amber-300 pb-11 transition-all duration-300 hover:shadow-lg"
             >
               <CardHeader>
                 <div
@@ -118,13 +118,13 @@ export const ModulesOverview = () => {
                     </li>
                   ))}
                 </ul>
-                <Button
-                  variant="outline"
-                  className="group-hover:bg-primary group-hover:text-primary-foreground w-full transition-colors"
-                >
-                  Learn More
-                </Button>
               </CardContent>
+              <Button
+                variant="outline"
+                className="mt-auto w-11/12 self-center bg-black text-white transition-colors hover:cursor-pointer hover:bg-black/85 hover:text-white"
+              >
+                Learn More
+              </Button>
             </Card>
           ))}
         </div>
@@ -138,7 +138,10 @@ export const ModulesOverview = () => {
               Start with any module and scale your business with our integrated
               ERP solution.
             </p>
-            <Button size="lg" className="bg-primary hover:bg-primary/90">
+            <Button
+              size="lg"
+              className="bg-primary hover:bg-primary/90 hover:cursor-pointer"
+            >
               Get Started Today
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>

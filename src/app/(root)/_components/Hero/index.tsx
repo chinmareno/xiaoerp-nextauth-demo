@@ -19,12 +19,16 @@ export const Hero = () => {
           <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
             <Button
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 hover:cursor-pointer"
             >
               Start Free Trial
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button variant="outline" size="lg" className="px-8 py-3">
+            <Button
+              variant="outline"
+              size="lg"
+              className="px-8 py-3 hover:cursor-pointer"
+            >
               Watch Demo
             </Button>
           </div>
