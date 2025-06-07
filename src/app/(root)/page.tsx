@@ -7,7 +7,7 @@ import { ModulesOverview } from "./_components/Overview";
 
 const LandingPage = () => {
   return (
-    <div className="bg-background min-h-screen">
+    <div className="min-h-screen">
       <Navbar />
       <Hero />
       <ModulesOverview />

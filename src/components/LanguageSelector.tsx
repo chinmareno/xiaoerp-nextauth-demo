@@ -1,14 +1,14 @@
-import { Button } from "~/components/ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu";
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarTrigger,
+} from "~/components/ui/menubar";
 import { Globe } from "lucide-react";
 import { languages, type Language } from "~/hooks/useLanguageStore";
-import Image from "next/image";
-import { LanguageFlagImage } from "./LanguageFlagImage";
+import { Button } from "./ui/button";
 
 type Props = {
   selectedLanguage?: Language;
@@ -20,45 +20,30 @@ export const LanguageSelector = ({
   setSelectedLanguage,
 }: Props) => {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="gap-2">
-          <Globe className="h-4 w-4" />
-          <span className="hidden sm:inline">
-            <LanguageFlagImage
-              flagUrl={selectedLanguage?.flagUrl}
-              name={selectedLanguage?.name}
-            />
-          </span>
-          <span className="sm:hidden">
-            <Image
-              src={
-                selectedLanguage?.flagUrl || "https://flagcdn.com/w40/us.png"
-              }
-              width={40}
-              height={20}
-              alt={selectedLanguage?.name || "English"}
-            />
-          </span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-zinc-200" align="end">
-        {languages.map((language) => (
-          <DropdownMenuItem
-            key={language.code}
-            onClick={() => setSelectedLanguage(language)}
-            className="cursor-pointer"
-          >
-            <span className="mr-2">
-              <LanguageFlagImage
-                flagUrl={language?.flagUrl}
-                name={language?.name}
-              />
-            </span>
-            {language.name}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <Menubar className="border-none bg-transparent">
+      <MenubarMenu>
+        <MenubarTrigger asChild>
+          <Button className="gap-2 rounded-full bg-zinc-200 text-black hover:cursor-pointer hover:bg-zinc-300">
+            <Globe />
+            {selectedLanguage?.code}
+          </Button>
+        </MenubarTrigger>
+        <MenubarContent align="end">
+          {languages.map((language) => (
+            <>
+              <MenubarItem
+                key={language.code}
+                onClick={() => {
+                  setSelectedLanguage(language);
+                }}
+              >
+                {language.name}
+              </MenubarItem>
+              <MenubarSeparator className="last:hidden" />
+            </>
+          ))}
+        </MenubarContent>
+      </MenubarMenu>
+    </Menubar>
   );
 };

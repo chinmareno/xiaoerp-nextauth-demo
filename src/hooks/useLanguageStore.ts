@@ -4,7 +4,6 @@ import { languages } from "~/lib/languages";
 export type Language = {
   code: string;
   name: string;
-  flagUrl: string;
 };
 
 type LanguageStore = {
