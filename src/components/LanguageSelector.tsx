@@ -28,9 +28,9 @@ export const LanguageSelector = ({
             {selectedLanguage?.code}
           </Button>
         </MenubarTrigger>
-        <MenubarContent align="end">
+        <MenubarContent>
           {languages.map((language, index) => (
-            <>
+            <div key={language.code + index}>
               <MenubarItem
                 key={language.code + index}
                 className="hover:cursor-pointer"
@@ -41,7 +41,7 @@ export const LanguageSelector = ({
                 {language.name}
               </MenubarItem>
               <MenubarSeparator className="last:hidden" />
-            </>
+            </div>
           ))}
         </MenubarContent>
       </MenubarMenu>
