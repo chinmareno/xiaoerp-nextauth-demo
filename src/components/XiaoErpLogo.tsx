@@ -1,5 +1,8 @@
+import { useI18n } from "@/app/public/locales/client";
+
 const XiaoErpLogo = () => {
-  return <span className="text-2xl font-bold"> Xiao ERP</span>;
+  const t = useI18n();
+  return <span className="text-2xl font-bold"> {t("logo")}</span>;
 };
 
 export default XiaoErpLogo;

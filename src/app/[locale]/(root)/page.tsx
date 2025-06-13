@@ -1,10 +1,10 @@
 "use client";
 
-import { HideOnScrollWrapper } from "~/components/wrapper/HideOnScrollWrapper";
-import { Footer } from "./_components/Footer";
-import { Hero } from "./_components/Hero";
+import { HideOnScrollWrapper } from "@/components/wrapper/HideOnScrollWrapper";
 import { Navbar } from "./_components/Navbar";
-import { ModulesOverview } from "./_components/Overview";
+import { Hero } from "./_components/Hero";
+import { ModulesOverview } from "./_components/ModulesOverview";
+import { Footer } from "./_components/Footer";
 
 const LandingPage = () => {
   return (

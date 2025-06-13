@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Menubar,
   MenubarContent,
@@ -5,27 +7,27 @@ import {
   MenubarMenu,
   MenubarSeparator,
   MenubarTrigger,
-} from "~/components/ui/menubar";
+} from "@/components/ui/menubar";
 import { Globe } from "lucide-react";
-import { languages, type Language } from "~/hooks/useLanguageStore";
 import { Button } from "./ui/button";
+import { useChangeLocale, useCurrentLocale } from "@/app/public/locales/client";
 
-type Props = {
-  selectedLanguage?: Language;
-  setSelectedLanguage: (language: Language) => void;
-};
+export const LanguageSelector = () => {
+  const changeLocale = useChangeLocale();
+  const locale = useCurrentLocale();
+  const languages = [
+    { code: "en", name: "English" },
+    { code: "zh", name: "中文" },
+    { code: "id", name: "Bahasa Indonesia" },
+  ] as const;
 
-export const LanguageSelector = ({
-  selectedLanguage,
-  setSelectedLanguage,
-}: Props) => {
   return (
     <Menubar className="border-none bg-transparent shadow-none">
       <MenubarMenu>
         <MenubarTrigger asChild>
           <Button className="gap-2 rounded-full border-none bg-transparent text-black shadow-none hover:cursor-pointer hover:bg-zinc-200">
             <Globe />
-            {selectedLanguage?.code}
+            {locale}
           </Button>
         </MenubarTrigger>
         <MenubarContent>
@@ -35,7 +37,7 @@ export const LanguageSelector = ({
                 key={language.code + index}
                 className="hover:cursor-pointer"
                 onClick={() => {
-                  setSelectedLanguage(language);
+                  changeLocale(language.code);
                 }}
               >
                 {language.name}
