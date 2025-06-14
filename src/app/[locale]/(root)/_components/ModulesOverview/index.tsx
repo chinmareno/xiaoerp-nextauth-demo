@@ -6,42 +6,11 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import ModulesOverviewCard from "./ModulesOverviewCard";
 import { useScopedI18n } from "@/app/public/locales/client";
 
 export const ModulesOverview = () => {
   const scopedT = useScopedI18n("modulesoverviewcards");
-  const accountingFeat = [
-    scopedT("accounting.features.1"),
-    scopedT("accounting.features.2"),
-    scopedT("accounting.features.3"),
-    scopedT("accounting.features.4"),
-  ];
-  const inventoryFeat = [
-    scopedT("inventory.features.1"),
-    scopedT("inventory.features.2"),
-    scopedT("inventory.features.3"),
-    scopedT("inventory.features.4"),
-  ];
-  const purchasingFeat = [
-    scopedT("purchasing.features.1"),
-    scopedT("purchasing.features.2"),
-    scopedT("purchasing.features.3"),
-    scopedT("purchasing.features.4"),
-  ];
-  const salesFeat = [
-    scopedT("sales.features.1"),
-    scopedT("sales.features.2"),
-    scopedT("sales.features.3"),
-    scopedT("sales.features.4"),
-  ];
 
   return (
     <section className="bg-background py-20">
@@ -59,28 +28,28 @@ export const ModulesOverview = () => {
         <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2">
           <ModulesOverviewCard
             description={scopedT("accounting.desc")}
-            features={accountingFeat}
+            features={scopedT("accounting.features")}
             icon={<Calculator />}
             iconClassName=""
             title={scopedT("accounting.title")}
           />
           <ModulesOverviewCard
             description={scopedT("inventory.desc")}
-            features={inventoryFeat}
+            features={scopedT("inventory.features")}
             icon={<Package />}
             iconClassName=""
             title={scopedT("inventory.title")}
           />
           <ModulesOverviewCard
             description={scopedT("purchasing.desc")}
-            features={purchasingFeat}
+            features={scopedT("purchasing.features")}
             icon={<ShoppingCart />}
             iconClassName=""
             title={scopedT("purchasing.title")}
           />
           <ModulesOverviewCard
             description={scopedT("sales.desc")}
-            features={salesFeat}
+            features={scopedT("sales.features")}
             icon={<TrendingUp />}
             iconClassName=""
             title={scopedT("sales.title")}

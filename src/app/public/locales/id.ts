@@ -22,42 +22,26 @@ export default {
     accounting: {
       title: "Akuntansi",
       desc: "Kelola keuangan secara menyeluruh dengan pencatatan otomatis, penagihan, dan pelaporan.",
-      features: {
-        1: "Buku Besar Umum",
-        2: "Hutang & Piutang",
-        3: "Laporan Keuangan",
-        4: "Manajemen Pajak",
-      },
+      features:
+        "Buku Besar Umum||Hutang & Piutang||Laporan Keuangan||Manajemen Pajak",
     },
     inventory: {
       title: "Manajemen Stok",
       desc: "Pantau stok secara real-time dengan notifikasi otomatis dan pengelolaan gudang.",
-      features: {
-        1: "Pelacakan Stok",
-        2: "Manajemen Gudang",
-        3: "Peringatan Stok Rendah",
-        4: "Katalog Produk",
-      },
+      features:
+        "Pelacakan Stok||Manajemen Gudang||Peringatan Stok Rendah||Katalog Produk",
     },
     purchasing: {
       title: "Pembelian",
       desc: "Permudah proses pengadaan dari pengelolaan vendor hingga pemesanan.",
-      features: {
-        1: "Manajemen Vendor",
-        2: "Pemesanan Pembelian",
-        3: "Evaluasi Pemasok",
-        4: "Analisis Biaya",
-      },
+      features:
+        "Manajemen Vendor||Pemesanan Pembelian||Evaluasi Pemasok||Analisis Biaya",
     },
     sales: {
       title: "Penjualan",
       desc: "Kelola seluruh proses penjualan dengan integrasi CRM dan analitik kinerja.",
-      features: {
-        1: "Manajemen Prospek",
-        2: "Pembuatan Penawaran",
-        3: "Analisis Penjualan",
-        4: "Portal Pelanggan",
-      },
+      features:
+        "Manajemen Prospek||Pembuatan Penawaran||Analisis Penjualan||Portal Pelanggan",
     },
   },
 } satisfies Locales;

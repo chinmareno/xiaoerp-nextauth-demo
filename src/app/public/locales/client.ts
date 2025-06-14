@@ -4,7 +4,7 @@ import { createI18nClient } from "next-international/client";
 type ModuleOverviewCard = {
   title: string;
   desc: string;
-  features: Record<number, string>;
+  features: string;
 };
 export type Locales = {
   login: string;

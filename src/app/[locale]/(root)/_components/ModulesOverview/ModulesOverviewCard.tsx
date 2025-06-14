@@ -12,7 +12,7 @@ type Props = {
   title: string;
   description: string;
   icon: React.ReactNode;
-  features: string[];
+  features: string;
   iconClassName: string;
 };
 
@@ -23,6 +23,7 @@ export const ModulesOverviewCard = ({
   description,
   features,
 }: Props) => {
+  const featuresArray = features.split("||");
   return (
     <Card className="group border-border flex pb-11 transition-all duration-300 hover:shadow-lg">
       <CardHeader>
@@ -38,7 +39,7 @@ export const ModulesOverviewCard = ({
       </CardHeader>
       <CardContent>
         <ul className="mb-6 space-y-2">
-          {features.map((feature, featureIndex) => (
+          {featuresArray.map((feature, featureIndex) => (
             <li
               key={featureIndex}
               className="text-muted-foreground flex items-center text-sm"

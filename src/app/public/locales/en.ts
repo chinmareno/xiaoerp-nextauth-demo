@@ -23,42 +23,26 @@ export default {
     accounting: {
       title: "Accounting",
       desc: "Complete financial management with automated bookkeeping, invoicing, and reporting.",
-      features: {
-        1: "General Ledger",
-        2: "Accounts Payable/Receivable",
-        3: "Financial Reports",
-        4: "Tax Management",
-      },
+      features:
+        "General Ledger||Accounts Payable/Receivable||Financial Reports||Tax Management",
     },
     inventory: {
       title: "Inventory",
       desc: "Real-time inventory tracking with automated stock alerts and warehouse management.",
-      features: {
-        1: "Stock Tracking",
-        2: "Warehouse Management",
-        3: "Low Stock Alerts",
-        4: "Product Catalog",
-      },
+      features:
+        "Stock Tracking||Warehouse Management||Low Stock Alerts||Product Catalog",
     },
     purchasing: {
       title: "Purchasing",
       desc: "Streamlined procurement process from vendor management to purchase orders.",
-      features: {
-        1: "Vendor Management",
-        2: "Purchase Orders",
-        3: "Supplier Evaluation",
-        4: "Cost Analysis",
-      },
+      features:
+        "Vendor Management||Purchase Orders||Supplier Evaluation||Cost Analysis",
     },
     sales: {
       title: "Sales",
       desc: "Complete sales pipeline management with CRM integration and performance analytics.",
-      features: {
-        1: "Lead Management",
-        2: "Quote Generation",
-        3: "Sales Analytics",
-        4: "Customer Portal",
-      },
+      features:
+        "Lead Management||Quote Generation||Sales Analytics||Customer Portal",
     },
   },
 } satisfies Locales;
