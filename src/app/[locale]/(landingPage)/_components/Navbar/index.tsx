@@ -16,17 +16,14 @@ export const Navbar = () => {
           </Link>
         </div>
         {/* Middle Navbar */}
-        <div className="bg-bekgron flex justify-center gap-10">
+        <div className="flex justify-center gap-10">
           <div>Menu</div>
           <div>Menu</div>
           <div>Menu</div>
         </div>
         {/* Right Navbar */}
-        <div className="flex justify-end">
-          <Button
-            variant="outline"
-            className="hidden border-none bg-transparent shadow-none hover:cursor-pointer hover:text-zinc-600 sm:inline-flex"
-          >
+        <div className="flex justify-end gap-0.5">
+          <Button className="capitalize" variant="ghost">
             {t("login")}
           </Button>
           <Button className="bg-primary hover:bg-primary/90 mr-6 hover:cursor-pointer">

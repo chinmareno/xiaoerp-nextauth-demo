@@ -1,9 +1,9 @@
 "use client";
 
 import type { ReactElement } from "react";
-import { Footer } from "./_components/Footer";
-import { Navbar } from "./_components/Navbar";
 import { HideOnScrollWrapper } from "@/components/wrapper/HideOnScrollWrapper";
+import { Navbar } from "./_components/Navbar";
+import { Footer } from "./_components/Footer";
 
 const LandingPageLayout = ({
   children,
@@ -12,11 +12,11 @@ const LandingPageLayout = ({
   children: ReactElement;
 }) => {
   return (
-    <div className="min-h-screen">
+    <div className="bg-background text-text-primary">
       <HideOnScrollWrapper>
         <Navbar />
       </HideOnScrollWrapper>
-      {children}
+      <div className="pt-24">{children}</div>
       <Footer />
     </div>
   );

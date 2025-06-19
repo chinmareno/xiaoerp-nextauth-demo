@@ -1,7 +1,7 @@
 import type { Locales } from "./client";
 
 export default {
-  login: "login",
+  login: "Login",
   logo: "Xiao ERP",
   hero1: "Streamline Your Business with",
   hero2: "Smart ERP Solution",
