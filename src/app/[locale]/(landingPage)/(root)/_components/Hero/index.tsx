@@ -5,7 +5,7 @@ import { useI18n } from "@/app/public/locales/client";
 export const Hero = () => {
   const t = useI18n();
   return (
-    <section className="from-primary/5 via-background to-secondary/5 bg-gradient-to-br py-20 lg:py-32">
+    <section className="pb-20 lg:pb-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <h1 className="text-foreground mb-6 text-center text-4xl leading-tight font-bold md:text-6xl">

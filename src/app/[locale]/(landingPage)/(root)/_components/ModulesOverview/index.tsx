@@ -1,9 +1,9 @@
 import {
-  Calculator,
   Package,
   ShoppingCart,
   TrendingUp,
   ArrowRight,
+  Calculator,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ModulesOverviewCard from "./ModulesOverviewCard";
