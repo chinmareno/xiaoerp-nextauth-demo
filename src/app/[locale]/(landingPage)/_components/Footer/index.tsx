@@ -1,8 +1,10 @@
-import { useScopedI18n } from "@/app/public/locales/client";
+import Link from "next/link";
+import { useCurrentLocale, useScopedI18n } from "@/app/public/locales/client";
 import { Separator } from "@/components/ui/separator";
 
 export const Footer = () => {
   const scopedT = useScopedI18n("landingPage.footer");
+  const locale = useCurrentLocale();
 
   return (
     <footer className="bg-muted/30 py-12">
@@ -23,24 +25,36 @@ export const Footer = () => {
             </h4>
             <ul className="text-muted-foreground space-y-2 text-sm">
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link
+                  href={`/${locale}/modules/accounting`}
+                  className="hover:text-primary transition-colors"
+                >
                   {scopedT("modules.accounting")}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link
+                  href={`/${locale}/modules/<i class="fas fa-inventory    "></i>`}
+                  className="hover:text-primary transition-colors"
+                >
                   {scopedT("modules.inventory")}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link
+                  href={`/${locale}/modules/purchasing`}
+                  className="hover:text-primary transition-colors"
+                >
                   {scopedT("modules.purchasing")}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link
+                  href={`/${locale}/modules/sales`}
+                  className="hover:text-primary transition-colors"
+                >
                   {scopedT("modules.sales")}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -51,19 +65,19 @@ export const Footer = () => {
             </h4>
             <ul className="text-muted-foreground space-y-2 text-sm">
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link href="#" className="hover:text-primary transition-colors">
                   {scopedT("support.documentation")}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link href="#" className="hover:text-primary transition-colors">
                   {scopedT("support.help")}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link href="#" className="hover:text-primary transition-colors">
                   {scopedT("support.contactUs")}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -74,24 +88,24 @@ export const Footer = () => {
             </h4>
             <ul className="text-muted-foreground space-y-2 text-sm">
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link href="#" className="hover:text-primary transition-colors">
                   {scopedT("company.aboutUs")}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link href="#" className="hover:text-primary transition-colors">
                   {scopedT("company.pricing")}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link href="#" className="hover:text-primary transition-colors">
                   {scopedT("company.privacyPolicy")}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link href="#" className="hover:text-primary transition-colors">
                   {scopedT("company.termsOfService")}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
