@@ -22,31 +22,33 @@ export const LanguageSelector = () => {
   ] as const;
 
   return (
-    <Menubar className="border-none bg-transparent shadow-none">
-      <MenubarMenu>
-        <MenubarTrigger asChild>
-          <Button className="gap-2 rounded-full border-none bg-transparent text-black shadow-none hover:cursor-pointer hover:bg-zinc-200">
-            <Globe />
-            {locale}
-          </Button>
-        </MenubarTrigger>
-        <MenubarContent>
-          {languages.map((language, index) => (
-            <div key={language.code + index}>
-              <MenubarItem
-                key={language.code + index}
-                className="hover:cursor-pointer"
-                onClick={() => {
-                  changeLocale(language.code);
-                }}
-              >
-                {language.name}
-              </MenubarItem>
-              <MenubarSeparator className="last:hidden" />
-            </div>
-          ))}
-        </MenubarContent>
-      </MenubarMenu>
-    </Menubar>
+    <div>
+      <Menubar className="border-none bg-transparent shadow-none">
+        <MenubarMenu>
+          <MenubarTrigger asChild>
+            <Button className="w-full gap-2 rounded-full border-none bg-transparent text-black shadow-none hover:cursor-pointer hover:bg-zinc-200">
+              <Globe />
+              {locale}
+            </Button>
+          </MenubarTrigger>
+          <MenubarContent align="start">
+            {languages.map((language, index) => (
+              <div key={language.code + index}>
+                <MenubarItem
+                  key={language.code + index}
+                  className="hover:cursor-pointer"
+                  onClick={() => {
+                    changeLocale(language.code);
+                  }}
+                >
+                  {language.name}
+                </MenubarItem>
+                <MenubarSeparator className="last:hidden" />
+              </div>
+            ))}
+          </MenubarContent>
+        </MenubarMenu>
+      </Menubar>
+    </div>
   );
 };
