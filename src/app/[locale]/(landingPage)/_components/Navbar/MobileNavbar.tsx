@@ -55,8 +55,9 @@ export const MobileNavbar = () => {
             }
           </div>
           <div className="flex w-full justify-around">
-            {languages.map((language) => (
+            {languages.map((language, i) => (
               <Button
+                key={i}
                 onClick={() => changeLocale(language.code)}
                 variant="ghost"
                 className={

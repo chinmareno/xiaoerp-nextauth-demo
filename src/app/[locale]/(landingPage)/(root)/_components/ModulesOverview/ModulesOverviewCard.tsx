@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 type Props = {
   title: string;
@@ -14,6 +15,7 @@ type Props = {
   icon: React.ReactNode;
   features: string;
   iconClassName: string;
+  learnMoreHref: string;
 };
 
 export const ModulesOverviewCard = ({
@@ -22,6 +24,7 @@ export const ModulesOverviewCard = ({
   title,
   description,
   features,
+  learnMoreHref,
 }: Props) => {
   const featuresArray = features.split("||");
   return (
@@ -51,10 +54,11 @@ export const ModulesOverviewCard = ({
         </ul>
       </CardContent>
       <Button
+        asChild
         variant="outline"
         className="mt-auto w-11/12 self-center bg-black text-white transition-colors hover:cursor-pointer hover:bg-black/85 hover:text-white"
       >
-        Learn More
+        <Link href={learnMoreHref}>Learn More</Link>
       </Button>
     </Card>
   );

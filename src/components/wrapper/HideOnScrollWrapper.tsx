@@ -24,7 +24,7 @@ export const HideOnScrollWrapper = ({ children }: Props) => {
   });
   return (
     <div
-      className={`fixed z-50 w-full transition-transform duration-300 ${
+      className={`w-full transition-transform duration-300 ${
         scrollDownTwice ? "-translate-y-full" : "translate-y-0"
       }`}
     >

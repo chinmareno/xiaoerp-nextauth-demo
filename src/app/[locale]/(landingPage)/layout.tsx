@@ -14,15 +14,15 @@ const LandingPageLayout = ({
 }) => {
   return (
     <div className="bg-background text-text-primary">
-      <div className="hidden sm:block">
+      <div className="fixed z-50 block w-full sm:hidden">
+        <MobileNavbar />
+      </div>
+      <div className="fixed z-50 hidden w-full sm:block">
         <HideOnScrollWrapper>
           <DesktopNavbar />
         </HideOnScrollWrapper>
       </div>
-      <div className="fixed block w-full sm:hidden">
-        <MobileNavbar />
-      </div>
-      <div className="pt-24">{children}</div>
+      <div className="pt-28">{children}</div>
       <Footer />
     </div>
   );

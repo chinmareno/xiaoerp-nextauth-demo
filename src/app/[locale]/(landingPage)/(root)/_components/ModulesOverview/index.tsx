@@ -7,10 +7,11 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ModulesOverviewCard from "./ModulesOverviewCard";
-import { useScopedI18n } from "@/app/public/locales/client";
+import { useCurrentLocale, useScopedI18n } from "@/app/public/locales/client";
 
 export const ModulesOverview = () => {
   const scopedT = useScopedI18n("modulesoverviewcards");
+  const locale = useCurrentLocale();
 
   return (
     <section className="bg-background py-20">
@@ -32,6 +33,7 @@ export const ModulesOverview = () => {
             icon={<Calculator />}
             iconClassName=""
             title={scopedT("accounting.title")}
+            learnMoreHref={`${locale}/modules/accounting`}
           />
           <ModulesOverviewCard
             description={scopedT("inventory.desc")}
@@ -39,6 +41,7 @@ export const ModulesOverview = () => {
             icon={<Package />}
             iconClassName=""
             title={scopedT("inventory.title")}
+            learnMoreHref={`${locale}/modules/inventory`}
           />
           <ModulesOverviewCard
             description={scopedT("purchasing.desc")}
@@ -46,6 +49,7 @@ export const ModulesOverview = () => {
             icon={<ShoppingCart />}
             iconClassName=""
             title={scopedT("purchasing.title")}
+            learnMoreHref={`${locale}/modules/purchasing`}
           />
           <ModulesOverviewCard
             description={scopedT("sales.desc")}
@@ -53,6 +57,7 @@ export const ModulesOverview = () => {
             icon={<TrendingUp />}
             iconClassName=""
             title={scopedT("sales.title")}
+            learnMoreHref={`${locale}/modules/sales`}
           />
         </div>
 
