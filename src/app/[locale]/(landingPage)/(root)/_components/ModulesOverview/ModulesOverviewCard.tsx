@@ -1,3 +1,4 @@
+import { useI18n } from "@/app/public/locales/client";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -27,6 +28,7 @@ export const ModulesOverviewCard = ({
   learnMoreHref,
 }: Props) => {
   const featuresArray = features.split("||");
+  const t = useI18n();
   return (
     <Card className="group border-border flex pb-11 transition-all duration-300 hover:shadow-lg">
       <CardHeader>
@@ -35,7 +37,7 @@ export const ModulesOverviewCard = ({
         >
           {icon}
         </div>
-        <CardTitle className="text-xl font-semibold">{title} Module</CardTitle>
+        <CardTitle className="text-xl font-semibold">{title}</CardTitle>
         <CardDescription className="text-muted-foreground">
           {description}
         </CardDescription>
@@ -58,7 +60,10 @@ export const ModulesOverviewCard = ({
         variant="outline"
         className="mt-auto w-11/12 self-center bg-black text-white transition-colors hover:cursor-pointer hover:bg-black/85 hover:text-white"
       >
-        <Link href={learnMoreHref}>Learn More</Link>
+        <Link href={learnMoreHref}>
+          {" "}
+          {t("landingPage.rootPath.moduleOverview.learnMoreButton")}
+        </Link>
       </Button>
     </Card>
   );

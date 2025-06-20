@@ -19,45 +19,41 @@ import { ModuleFeatureGrid } from "../_component/ModuleFeatureGrid";
 import { ModuleUseCase } from "../_component/ModuleUseCase";
 import { ModuleBenefitList } from "../_component/ModuleBenefitList";
 import BackHomeButton from "@/components/BackHomeButton";
-import { useCurrentLocale } from "@/app/public/locales/client";
+import {
+  useCurrentLocale,
+  useI18n,
+  useScopedI18n,
+} from "@/app/public/locales/client";
 
 const SalesModulePage = () => {
+  const scopedT = useScopedI18n("landingPage.modulesPath.sales");
+  const t = useI18n();
+  const locale = useCurrentLocale();
+
   const features = [
     {
       icon: <Handshake className="h-6 w-6" />,
-      title: "Customer Management",
-      description:
-        "Track leads, manage customer relationships, and maintain a centralized database with interaction history.",
+      title: scopedT("features.customerManagement.title"),
+      description: scopedT("features.customerManagement.desc"),
     },
     {
       icon: <FileText className="h-6 w-6" />,
-      title: "Quotation & Invoicing",
-      description:
-        "Generate professional quotes and invoices instantly with auto-filled customer, pricing, and tax details.",
+      title: scopedT("features.quotationInvoicing.title"),
+      description: scopedT("features.quotationInvoicing.desc"),
     },
     {
       icon: <DollarSign className="h-6 w-6" />,
-      title: "Sales Orders",
-      description:
-        "Convert approved quotations into sales orders with real-time product availability checks.",
+      title: scopedT("features.salesOrders.title"),
+      description: scopedT("features.salesOrders.desc"),
     },
     {
       icon: <Boxes className="h-6 w-6" />,
-      title: "Order Fulfillment",
-      description:
-        "Track the order lifecycle from placement to delivery, integrated with inventory and logistics.",
+      title: scopedT("features.orderFulfillment.title"),
+      description: scopedT("features.orderFulfillment.desc"),
     },
   ];
 
-  const benefits = [
-    "Accelerates the sales cycle with automation",
-    "Reduces manual errors in quotes and invoices",
-    "Provides visibility into lead-to-cash pipeline",
-    "Integrates seamlessly with Inventory and Accounting",
-    "Improves customer satisfaction with timely follow-ups",
-  ];
-
-  const locale = useCurrentLocale();
+  const benefits = scopedT("benefits").split("||");
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-teal-50">
@@ -65,36 +61,36 @@ const SalesModulePage = () => {
         {/* Header */}
         <ModuleHeader
           icon={<TrendingUp className="h-8 w-8 text-white" />}
-          title="Sales Module"
-          subtitle="Manage the entire sales lifecycle from lead to revenue—intuitively and efficiently"
+          title={scopedT("header.title")}
+          description={scopedT("header.desc")}
           backgroundColor="bg-teal-600"
         />
 
         {/* Summary */}
         <ModuleSummary
-          title="What Our Sales Module Delivers"
-          description="The Sales Module simplifies everything from lead generation and quote creation to final delivery and invoicing. By automating key touchpoints and integrating tightly with inventory and accounting, it eliminates redundant processes and lets your team focus on closing deals faster."
+          title={scopedT("summary.title")}
+          description={scopedT("summary.desc")}
         />
 
         {/* Visual Workflow */}
-        <ModuleVisualFlow title="From Lead to Ledger">
+        <ModuleVisualFlow title={t("landingPage.modulesPath.visualFlowTitle")}>
           <ModuleVisualFlow.Before>
             <ModuleVisualFlow.Item
               icon={<ClipboardList className="h-8 w-8" />}
-              title="CRM"
-              description="Lead & Contact"
+              title={scopedT("visualFlow.before1.title")}
+              description={scopedT("visualFlow.before1.desc")}
             />
             <ModuleVisualFlow.Item
               icon={<CheckCircle className="h-8 w-8" />}
-              title="Qualification"
-              description="Needs & Budget"
+              title={scopedT("visualFlow.before2.title")}
+              description={scopedT("visualFlow.before2.desc")}
             />
           </ModuleVisualFlow.Before>
 
           <ModuleVisualFlow.Center
             icon={<TrendingUp className="h-6 w-6" />}
-            title="Sales Module"
-            description="Quoting & Orders"
+            title={scopedT("visualFlow.center.title")}
+            description={scopedT("visualFlow.center.desc")}
             cardBorderColor="border-teal-200"
             cardBackgroundColor="bg-teal-50"
             iconBackgroundColor="bg-teal-600"
@@ -104,20 +100,20 @@ const SalesModulePage = () => {
           <ModuleVisualFlow.After>
             <ModuleVisualFlow.Item
               icon={<Package className="h-8 w-8" />}
-              title="Inventory Module"
-              description="Stock allocation"
+              title={scopedT("visualFlow.after1.title")}
+              description={scopedT("visualFlow.after1.desc")}
             />
             <ModuleVisualFlow.Item
               icon={<Calculator className="h-8 w-8" />}
-              title="Accounting Module"
-              description="Invoice, revenue"
+              title={scopedT("visualFlow.after2.title")}
+              description={scopedT("visualFlow.after2.desc")}
             />
           </ModuleVisualFlow.After>
         </ModuleVisualFlow>
 
         {/* Feature Grid */}
         <ModuleFeatureGrid
-          title="Core Features That Drive Sales"
+          title={scopedT("featureGridTitle")}
           features={features}
           iconBackgroundColor="bg-teal-100"
           iconColor="text-teal-600"
@@ -125,15 +121,15 @@ const SalesModulePage = () => {
 
         {/* Use Case */}
         <ModuleUseCase
-          title="See It Live: Closing Deals, Effortlessly"
-          description="A new customer inquires through your CRM. Within minutes, your sales rep creates a tailored quote and emails it with a single click. The customer accepts, and the system converts it to a Sales Order. Inventory updates in real-time, the invoice is auto-generated, and your Accounting Module logs the revenue. Zero delays. Just streamlined selling."
+          title={scopedT("useCase.title")}
+          description={scopedT("useCase.desc")}
           gradientFrom="from-teal-600"
           gradientTo="to-teal-700"
         />
 
         {/* Benefits */}
         <ModuleBenefitList
-          title="Benefits You Can Count On"
+          title={scopedT("benefitListTitle")}
           benefits={benefits}
         />
 

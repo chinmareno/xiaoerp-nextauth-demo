@@ -1,93 +1,96 @@
+import { useScopedI18n } from "@/app/public/locales/client";
 import { Separator } from "@/components/ui/separator";
 
 export const Footer = () => {
+  const scopedT = useScopedI18n("landingPage.footer");
+
   return (
     <footer className="bg-muted/30 py-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8 grid grid-cols-1 gap-8 md:grid-cols-4">
+        <div className="mb-8 grid grid-cols-1 gap-8 md:grid md:grid-cols-4">
           <div>
             <h3 className="text-foreground mb-4 text-lg font-semibold">
-              SmartERP
+              {scopedT("xiaoErp.title")}
             </h3>
             <p className="text-muted-foreground text-sm">
-              Comprehensive ERP solution designed for small businesses to
-              streamline operations and drive growth.
+              {scopedT("xiaoErp.desc")}
             </p>
           </div>
 
           <div>
-            <h4 className="text-foreground mb-4 font-semibold">Modules</h4>
+            <h4 className="text-foreground mb-4 font-semibold">
+              {scopedT("modules.title")}
+            </h4>
             <ul className="text-muted-foreground space-y-2 text-sm">
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Accounting
+                  {scopedT("modules.accounting")}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Inventory Manager
+                  {scopedT("modules.inventory")}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Purchasing
+                  {scopedT("modules.purchasing")}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Sales
+                  {scopedT("modules.sales")}
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-foreground mb-4 font-semibold">Support</h4>
+            <h4 className="text-foreground mb-4 font-semibold">
+              {scopedT("support.title")}
+            </h4>
             <ul className="text-muted-foreground space-y-2 text-sm">
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Documentation
+                  {scopedT("support.documentation")}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Help Center
+                  {scopedT("support.help")}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Contact Us
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  System Status
+                  {scopedT("support.contactUs")}
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-foreground mb-4 font-semibold">Company</h4>
+            <h4 className="text-foreground mb-4 font-semibold">
+              {scopedT("company.title")}
+            </h4>
             <ul className="text-muted-foreground space-y-2 text-sm">
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  About Us
+                  {scopedT("company.aboutUs")}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Pricing
+                  {scopedT("company.pricing")}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Privacy Policy
+                  {scopedT("company.privacyPolicy")}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Terms of Service
+                  {scopedT("company.termsOfService")}
                 </a>
               </li>
             </ul>
@@ -96,10 +99,10 @@ export const Footer = () => {
 
         <Separator className="mb-8" />
 
-        <div className="text-muted-foreground flex flex-col items-center justify-between text-sm md:flex-row">
-          <p>&copy; 2024 SmartERP. All rights reserved.</p>
+        <div className="text-muted-foreground flex flex-col items-center justify-between text-center text-sm md:flex-row">
+          <p>&copy; 2024 XiaoERP. {scopedT("allRightReserved")}</p>
           <p className="mt-2 md:mt-0">
-            Available in English, 中文, and Bahasa Indonesia
+            {scopedT("availableIn")} English, 中文, & Bahasa Indonesia
           </p>
         </div>
       </div>

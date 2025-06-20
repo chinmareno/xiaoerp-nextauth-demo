@@ -3,14 +3,17 @@
 import {
   Package,
   TrendingUp,
-  FileText,
   Calculator,
   ShoppingCart,
   PieChart,
   Boxes,
   CheckCheck,
 } from "lucide-react";
-import { useCurrentLocale } from "@/app/public/locales/client";
+import {
+  useCurrentLocale,
+  useI18n,
+  useScopedI18n,
+} from "@/app/public/locales/client";
 import { ModuleHeader } from "../_component/ModuleHeader";
 import { ModuleSummary } from "../_component/ModuleSummary";
 import { ModuleVisualFlow } from "../_component/ModuleVisualFlow";
@@ -20,42 +23,34 @@ import { ModuleBenefitList } from "../_component/ModuleBenefitList";
 import BackHomeButton from "@/components/BackHomeButton";
 
 const InventoryModulePage = () => {
+  const scopedT = useScopedI18n("landingPage.modulesPath.inventory");
+  const t = useI18n();
+  const locale = useCurrentLocale();
+
   const features = [
     {
       icon: <Boxes className="h-6 w-6" />,
-      title: "Stock Management",
-      description:
-        "Real-time tracking of stock levels, automated reorder alerts, and SKU categorization for efficient warehouse operations.",
+      title: scopedT("features.stockManagement.title"),
+      description: scopedT("features.stockManagement.desc"),
     },
     {
       icon: <ShoppingCart className="h-6 w-6" />,
-      title: "Purchase Orders",
-      description:
-        "Generate and manage purchase orders with supplier tracking, delivery status updates, and budget control.",
+      title: scopedT("features.purchaseOrders.title"),
+      description: scopedT("features.purchaseOrders.desc"),
     },
     {
       icon: <TrendingUp className="h-6 w-6" />,
-      title: "Sales Sync",
-      description:
-        "Inventory automatically updates with each sale to avoid over-selling and maintain accurate counts.",
+      title: scopedT("features.salesSync.title"),
+      description: scopedT("features.salesSync.desc"),
     },
     {
       icon: <CheckCheck className="h-6 w-6" />,
-      title: "Stock Audits",
-      description:
-        "Simplify auditing processes with digital stocktake tools and discrepancy reports for accurate reconciliation.",
+      title: scopedT("features.stockAudits.title"),
+      description: scopedT("features.stockAudits.desc"),
     },
   ];
 
-  const benefits = [
-    "Avoid stockouts and overstock with real-time tracking",
-    "Automated purchasing ensures optimal inventory levels",
-    "Integrated with sales and accounting for seamless flow",
-    "Minimize shrinkage with audit-ready reports",
-    "Streamline supplier communications and purchase approvals",
-  ];
-
-  const locale = useCurrentLocale();
+  const benefits = scopedT("benefits").split("||");
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-amber-50">
@@ -63,36 +58,36 @@ const InventoryModulePage = () => {
         {/* Header */}
         <ModuleHeader
           icon={<Package className="h-8 w-8 text-white" />}
-          title="Inventory Module"
-          subtitle="Manage stock effortlessly with automation and accuracy"
+          title={scopedT("header.title")}
+          description={scopedT("header.desc")}
           backgroundColor="bg-amber-700"
         />
 
         {/* Summary */}
         <ModuleSummary
-          title="What Our Inventory Module Does"
-          description="The Inventory Module keeps your warehouse in sync with your sales and purchasing teams. With real-time updates, low-stock alerts, and a clear overview of your items, you can confidently fulfill orders without worrying about stock discrepancies."
+          title={scopedT("summary.title")}
+          description={scopedT("summary.desc")}
         />
 
         {/* Visual Workflow */}
-        <ModuleVisualFlow title="Integrated Workflow">
+        <ModuleVisualFlow title={t("landingPage.modulesPath.visualFlowTitle")}>
           <ModuleVisualFlow.Before>
             <ModuleVisualFlow.Item
               icon={<TrendingUp className="h-8 w-8" />}
-              title="Sales Module"
-              description="Triggers stock movement"
+              title={scopedT("visualFlow.before1.title")}
+              description={scopedT("visualFlow.before1.desc")}
             />
             <ModuleVisualFlow.Item
               icon={<ShoppingCart className="h-8 w-8" />}
-              title="Purchase Module"
-              description="Feeds in purchase order data"
+              title={scopedT("visualFlow.before2.title")}
+              description={scopedT("visualFlow.before2.desc")}
             />
           </ModuleVisualFlow.Before>
 
           <ModuleVisualFlow.Center
             icon={<Package className="h-6 w-6" />}
-            title="Inventory Module"
-            description="Stock Brain"
+            title={scopedT("visualFlow.center.title")}
+            description={scopedT("visualFlow.center.desc")}
             cardBorderColor="border-amber-200"
             cardBackgroundColor="bg-amber-50"
             iconBackgroundColor="bg-amber-700"
@@ -102,20 +97,20 @@ const InventoryModulePage = () => {
           <ModuleVisualFlow.After>
             <ModuleVisualFlow.Item
               icon={<Calculator className="h-8 w-8" />}
-              title="Accounting Module"
-              description="Tracks financial impact"
+              title={scopedT("visualFlow.after1.title")}
+              description={scopedT("visualFlow.after1.desc")}
             />
             <ModuleVisualFlow.Item
               icon={<PieChart className="h-8 w-8" />}
-              title="Reports Module"
-              description="Generates audit and stock reports"
+              title={scopedT("visualFlow.after2.title")}
+              description={scopedT("visualFlow.after2.desc")}
             />
           </ModuleVisualFlow.After>
         </ModuleVisualFlow>
 
         {/* Feature Grid */}
         <ModuleFeatureGrid
-          title="Key Inventory Features"
+          title={scopedT("featureGridTitle")}
           features={features}
           iconBackgroundColor="bg-amber-100"
           iconColor="text-amber-700"
@@ -123,19 +118,19 @@ const InventoryModulePage = () => {
 
         {/* Use Case */}
         <ModuleUseCase
-          title="Real-World Example"
-          description="Imagine your sales team finalizes a bulk order of 500 units. Instantly, the Inventory Module updates stock levels and flags a low-stock warning. Meanwhile, a purchase order is auto-generated for the procurement team, who can then confirm restocking with one click. As items arrive and are logged in, stock levels sync across sales and accounting — all without spreadsheets or manual entries. That’s automation working where it matters most."
+          title={scopedT("useCase.title")}
+          description={scopedT("useCase.desc")}
           gradientFrom="from-amber-600"
           gradientTo="to-amber-700"
         />
 
         {/* Benefits */}
         <ModuleBenefitList
-          title="Why Inventory Management Matters"
+          title={scopedT("benefitListTitle")}
           benefits={benefits}
         />
 
-        {/* Back Home Button */}
+        {/* Back Home */}
         <BackHomeButton locale={locale} />
       </div>
     </div>

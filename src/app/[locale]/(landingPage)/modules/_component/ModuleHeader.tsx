@@ -3,14 +3,14 @@ import type { ReactNode } from "react";
 type Props = {
   icon: ReactNode;
   title: string;
-  subtitle: string;
+  description: string;
   backgroundColor: string;
 };
 
 export const ModuleHeader = ({
   icon,
   title,
-  subtitle,
+  description,
   backgroundColor,
 }: Props) => {
   return (
@@ -24,7 +24,7 @@ export const ModuleHeader = ({
         {title}
       </h1>
       <p className="mx-auto max-w-2xl text-base text-gray-600 sm:text-lg md:text-xl">
-        {subtitle}
+        {description}
       </p>
     </div>
   );

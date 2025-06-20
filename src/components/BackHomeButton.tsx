@@ -2,11 +2,13 @@ import React from "react";
 import { Button } from "./ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { useScopedI18n } from "@/app/public/locales/client";
 
 type Props = {
   locale: string;
 };
 const BackHomeButton = ({ locale }: Props) => {
+  const scopedT = useScopedI18n("landingPage.modulesPath");
   return (
     <div className="mt-8 text-center">
       <Button
@@ -15,7 +17,7 @@ const BackHomeButton = ({ locale }: Props) => {
       >
         <Link href={`/${locale}`} replace>
           <ArrowLeft className="h-4 w-4" />
-          <span>Back Home</span>
+          <span>{scopedT("backHome")}</span>
         </Link>
       </Button>
     </div>

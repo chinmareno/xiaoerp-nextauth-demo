@@ -19,9 +19,11 @@ export const DesktopNavbar = () => {
 
         <div className="hidden items-center gap-2 sm:flex">
           <Button className="capitalize" variant="ghost">
-            {t("login")}
+            {t("landingPage.navbar.login")}
           </Button>
-          <Button className="bg-primary hover:bg-primary/90">Sign Up</Button>
+          <Button className="bg-primary hover:bg-primary/90">
+            {t("landingPage.navbar.signup")}
+          </Button>
           <LanguageSelector />
         </div>
       </div>

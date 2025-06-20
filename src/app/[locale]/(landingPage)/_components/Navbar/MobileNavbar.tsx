@@ -43,10 +43,10 @@ export const MobileNavbar = () => {
       {isOpen && (
         <div className="mt-2 flex flex-col items-start gap-4 rounded-lg bg-white p-4 shadow-md sm:hidden">
           <Button className="w-full justify-start capitalize" variant="ghost">
-            {t("login")}
+            {t("landingPage.navbar.login")}
           </Button>
           <Button className="bg-primary hover:bg-primary/90 w-full justify-start">
-            Sign Up
+            {t("landingPage.navbar.signup")}
           </Button>
           <div className="flex w-full justify-center border-t-2 pt-2">
             {
