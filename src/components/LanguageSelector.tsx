@@ -8,7 +8,7 @@ import {
   MenubarSeparator,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-import { Globe } from "lucide-react";
+import { Check, Globe } from "lucide-react";
 import { Button } from "./ui/button";
 import { useChangeLocale, useCurrentLocale } from "@/app/public/locales/client";
 
@@ -28,7 +28,6 @@ export const LanguageSelector = () => {
           <MenubarTrigger asChild>
             <Button className="w-full gap-2 rounded-full border-none bg-transparent text-black shadow-none hover:cursor-pointer hover:bg-zinc-200">
               <Globe />
-              {locale}
             </Button>
           </MenubarTrigger>
           <MenubarContent hideWhenDetached align="start">
@@ -41,6 +40,11 @@ export const LanguageSelector = () => {
                     changeLocale(language.code);
                   }}
                 >
+                  {locale === language.code ? (
+                    <Check className="h-4 w-4 text-blue-600" />
+                  ) : (
+                    <span className="h-4 w-4" />
+                  )}
                   {language.name}
                 </MenubarItem>
                 <MenubarSeparator className="last:hidden" />

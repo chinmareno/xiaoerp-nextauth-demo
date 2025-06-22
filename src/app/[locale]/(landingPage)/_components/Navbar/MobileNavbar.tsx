@@ -9,7 +9,7 @@ import {
   useCurrentLocale,
   useI18n,
 } from "@/app/public/locales/client";
-import { Menu, X } from "lucide-react";
+import { Globe, Menu, X } from "lucide-react";
 
 export const MobileNavbar = () => {
   const t = useI18n();
@@ -42,30 +42,36 @@ export const MobileNavbar = () => {
       {/* Menu */}
       {isOpen && (
         <div className="mt-2 flex flex-col items-start gap-4 rounded-lg bg-white p-4 shadow-md sm:hidden">
-          <Button className="w-full justify-start capitalize" variant="ghost">
-            {t("landingPage.navbar.login")}
+          <Button
+            asChild
+            className="w-full justify-start capitalize"
+            variant="ghost"
+          >
+            <Link href="/login">{t("landingPage.navbar.login")}</Link>
           </Button>
-          <Button className="bg-primary hover:bg-primary/90 w-full justify-start">
-            {t("landingPage.navbar.signup")}
+          <Button
+            asChild
+            className="bg-primary hover:bg-primary/90 w-full justify-start"
+          >
+            <Link href="/signup">{t("landingPage.navbar.signup")}</Link>
           </Button>
-          <div className="flex w-full justify-center border-t-2 pt-2">
-            {
-              languages.find((lang) => (lang.code === locale ? true : false))
-                ?.name
-            }
-          </div>
-          <div className="flex w-full justify-around">
+
+          <div className="flex w-full flex-col border-t-2 pt-2">
+            <Globe className="mb-1.5 w-full" size={19} />
             {languages.map((language, i) => (
-              <Button
-                key={i}
-                onClick={() => changeLocale(language.code)}
-                variant="ghost"
-                className={
-                  locale === language.code ? "font-bold underline" : ""
-                }
-              >
-                {language.code}
-              </Button>
+              <div className="flex w-full items-center justify-center text-blue-600">
+                <Button
+                  key={i}
+                  onClick={() => changeLocale(language.code)}
+                  variant="ghost"
+                  className={
+                    "" +
+                    (locale === language.code ? " font-bold underline" : "")
+                  }
+                >
+                  {language.name}
+                </Button>
+              </div>
             ))}
           </div>
         </div>

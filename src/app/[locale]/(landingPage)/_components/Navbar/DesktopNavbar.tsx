@@ -18,11 +18,11 @@ export const DesktopNavbar = () => {
         </Link>
 
         <div className="hidden items-center gap-2 sm:flex">
-          <Button className="capitalize" variant="ghost">
-            {t("landingPage.navbar.login")}
+          <Button asChild className="capitalize" variant="ghost">
+            <Link href={"/login"}>{t("landingPage.navbar.login")}</Link>
           </Button>
-          <Button className="bg-primary hover:bg-primary/90">
-            {t("landingPage.navbar.signup")}
+          <Button asChild className="bg-primary hover:bg-primary/90">
+            <Link href={"/signup"}>{t("landingPage.navbar.signup")}</Link>
           </Button>
           <LanguageSelector />
         </div>
