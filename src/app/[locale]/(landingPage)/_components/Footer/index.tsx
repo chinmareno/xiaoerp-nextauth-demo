@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { useCurrentLocale, useScopedI18n } from "@/app/public/locales/client";
+import { useScopedI18n } from "@/app/public/locales/client";
 import { Separator } from "@/components/ui/separator";
 
 export const Footer = () => {
   const scopedT = useScopedI18n("landingPage.footer");
-  const locale = useCurrentLocale();
 
   return (
     <footer className="bg-muted/30 py-12">
@@ -26,7 +25,7 @@ export const Footer = () => {
             <ul className="text-muted-foreground space-y-2 text-sm">
               <li>
                 <Link
-                  href={`/${locale}/modules/accounting`}
+                  href="/modules/accounting"
                   className="hover:text-primary transition-colors"
                 >
                   {scopedT("modules.accounting")}
@@ -34,7 +33,7 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  href={`/${locale}/modules/inventory`}
+                  href="/modules/inventory"
                   className="hover:text-primary transition-colors"
                 >
                   {scopedT("modules.inventory")}
@@ -42,7 +41,7 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  href={`/${locale}/modules/purchasing`}
+                  href="/modules/purchasing"
                   className="hover:text-primary transition-colors"
                 >
                   {scopedT("modules.purchasing")}
@@ -50,7 +49,7 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  href={`/${locale}/modules/sales`}
+                  href="/modules/sales"
                   className="hover:text-primary transition-colors"
                 >
                   {scopedT("modules.sales")}

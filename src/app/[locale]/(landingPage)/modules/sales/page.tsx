@@ -19,16 +19,11 @@ import { ModuleFeatureGrid } from "../_component/ModuleFeatureGrid";
 import { ModuleUseCase } from "../_component/ModuleUseCase";
 import { ModuleBenefitList } from "../_component/ModuleBenefitList";
 import BackHomeButton from "@/components/BackHomeButton";
-import {
-  useCurrentLocale,
-  useI18n,
-  useScopedI18n,
-} from "@/app/public/locales/client";
+import { useI18n, useScopedI18n } from "@/app/public/locales/client";
 
 const SalesModulePage = () => {
   const scopedT = useScopedI18n("landingPage.modulesPath.sales");
   const t = useI18n();
-  const locale = useCurrentLocale();
 
   const features = [
     {
@@ -134,7 +129,7 @@ const SalesModulePage = () => {
         />
 
         {/* Back Home */}
-        <BackHomeButton locale={locale} />
+        <BackHomeButton />
       </div>
     </div>
   );

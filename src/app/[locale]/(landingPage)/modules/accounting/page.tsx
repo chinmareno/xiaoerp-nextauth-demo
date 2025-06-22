@@ -10,11 +10,7 @@ import {
   Package,
   DollarSign,
 } from "lucide-react";
-import {
-  useCurrentLocale,
-  useI18n,
-  useScopedI18n,
-} from "@/app/public/locales/client";
+import { useI18n, useScopedI18n } from "@/app/public/locales/client";
 import { ModuleHeader } from "../_component/ModuleHeader";
 import { ModuleSummary } from "../_component/ModuleSummary";
 import { ModuleVisualFlow } from "../_component/ModuleVisualFlow";
@@ -26,7 +22,6 @@ import BackHomeButton from "@/components/BackHomeButton";
 const AccountingModulePage = () => {
   const scopedT = useScopedI18n("landingPage.modulesPath.accounting");
   const t = useI18n();
-  const locale = useCurrentLocale();
 
   const features = [
     {
@@ -131,7 +126,7 @@ const AccountingModulePage = () => {
       />
 
       {/* Back Home Button */}
-      <BackHomeButton locale={locale} />
+      <BackHomeButton />
     </div>
   );
 };
