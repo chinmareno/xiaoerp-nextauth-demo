@@ -31,7 +31,7 @@ export const LanguageSelector = () => {
               {locale}
             </Button>
           </MenubarTrigger>
-          <MenubarContent align="start">
+          <MenubarContent hideWhenDetached align="start">
             {languages.map((language, index) => (
               <div key={language.code + index}>
                 <MenubarItem
