@@ -14,15 +14,6 @@ const config = {
       },
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/en",
-        permanent: true,
-      },
-    ];
-  },
 };
 
 export default config;
