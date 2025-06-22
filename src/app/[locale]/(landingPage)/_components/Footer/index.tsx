@@ -34,7 +34,7 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  href={`/${locale}/modules/<i class="fas fa-inventory    "></i>`}
+                  href={`/${locale}/modules/inventory`}
                   className="hover:text-primary transition-colors"
                 >
                   {scopedT("modules.inventory")}

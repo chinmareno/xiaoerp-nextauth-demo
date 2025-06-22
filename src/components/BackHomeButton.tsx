@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useScopedI18n } from "@/app/public/locales/client";
 
 type Props = {
-  locale: string;
+  locale?: string;
 };
 const BackHomeButton = ({ locale }: Props) => {
   const scopedT = useScopedI18n("landingPage.modulesPath");
@@ -15,7 +15,7 @@ const BackHomeButton = ({ locale }: Props) => {
         asChild
         className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-700"
       >
-        <Link href={`/${locale}`} replace>
+        <Link href={`/${locale}`}>
           <ArrowLeft className="h-4 w-4" />
           <span>{scopedT("backHome")}</span>
         </Link>
