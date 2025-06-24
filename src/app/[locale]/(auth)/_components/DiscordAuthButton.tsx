@@ -9,7 +9,7 @@ export const DiscordAuthButton = ({ text }: Props) => {
   return (
     <div>
       <Button
-        onClick={() => signIn("discord", { redirectTo: "/" })}
+        onClick={() => signIn("discord", { redirectTo: "/dashboard" })}
         className="flex h-12 w-full items-center justify-center gap-3 bg-[#5865F2] font-medium text-white hover:bg-[#4752C4]"
       >
         <svg
