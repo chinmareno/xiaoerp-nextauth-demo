@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 import { I18nProviderClient } from "../public/locales/client";
 import { notFound } from "next/navigation";
+import { SessionProvider } from "next-auth/react";
 
 const RootLayout = async ({
   params,
@@ -16,7 +17,11 @@ const RootLayout = async ({
     notFound();
   }
 
-  return <I18nProviderClient locale={locale}>{children}</I18nProviderClient>;
+  return (
+    <SessionProvider>
+      <I18nProviderClient locale={locale}>{children}</I18nProviderClient>;
+    </SessionProvider>
+  );
 };
 
 export default RootLayout;

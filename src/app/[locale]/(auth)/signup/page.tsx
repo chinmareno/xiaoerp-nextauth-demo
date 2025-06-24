@@ -12,8 +12,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { DiscordAuthButton } from "../_components/DiscordAuthButton";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 const SignupPage = () => {
+  const session = useSession();
+  if (session.status === "authenticated") redirect("/dashboard");
   return (
     <div className="flex h-screen w-screen items-center justify-center pb-[10.5vh]">
       <Card className="mx-auto w-full max-w-md">
