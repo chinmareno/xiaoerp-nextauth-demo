@@ -1,6 +1,6 @@
 import { ArrowRight, Shield, Zap, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useI18n, useScopedI18n } from "@/app/public/locales/client";
+import { useScopedI18n } from "@/app/public/locales/client";
 
 export const Hero = () => {
   const scopedT = useScopedI18n("landingPage.rootPath.hero");

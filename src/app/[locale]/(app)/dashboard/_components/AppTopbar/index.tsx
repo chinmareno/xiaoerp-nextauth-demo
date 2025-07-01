@@ -28,7 +28,7 @@ export const AppTopbar = () => {
   const { data } = api.user.getUser.useQuery(undefined, {
     placeholderData: { name: "User", image: null },
   });
-  const username = data?.name || "User";
+  const username = data?.name ?? "User";
   const [isDialogChangeUsernameOpen, setIsDialogChangeUsernameOpen] =
     useState(false);
 

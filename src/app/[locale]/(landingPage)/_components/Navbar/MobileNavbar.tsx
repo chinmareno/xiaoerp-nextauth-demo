@@ -59,9 +59,11 @@ export const MobileNavbar = () => {
           <div className="flex w-full flex-col border-t-2 pt-2">
             <Globe className="mb-1.5 w-full" size={19} />
             {languages.map((language, i) => (
-              <div className="flex w-full items-center justify-center text-blue-600">
+              <div
+                key={i}
+                className="flex w-full items-center justify-center text-blue-600"
+              >
                 <Button
-                  key={i}
                   onClick={() => changeLocale(language.code)}
                   variant="ghost"
                   className={

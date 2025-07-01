@@ -41,7 +41,7 @@ export const DialogChangeUsername = ({ isOpen, setIsOpen }: Props) => {
       utils.user.getUser.setData(undefined, (oldData) => ({
         ...oldData,
         name: updatedUser.name,
-        image: oldData?.image || null,
+        image: oldData?.image ?? null,
       }));
     },
   });
