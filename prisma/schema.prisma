@@ -45,12 +45,13 @@ model Session {
 
 model User {
     id            String    @id @default(cuid())
-    name          String?
+    name          String    
     email         String?   @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
     sessions      Session[]
+    companies      CompanyMember[]
 }
 
 model VerificationToken {
@@ -59,4 +60,45 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Company {
+  id          String         @id @default(cuid())
+  name        String
+  description String?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  departments  Department[] @default([FINANCE,INVENTORY,SALES,PURCHASING])
+  memberships CompanyMember[]
+}
+
+model CompanyMember {
+  id        String   @id @default(cuid())
+  userId    String
+  companyId String
+  role      Role     @default(MEMBER)
+  joinedAt  DateTime @default(now())
+  permissions String[] @default([])
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, companyId]) 
+}
+
+enum Role {
+  OWNER
+  MEMBER
+}
+
+enum Permission {
+  READ
+  EDIT
+  NONE
+}
+
+enum Department {
+  FINANCE
+  INVENTORY
+  SALES
+  PURCHASING
 }

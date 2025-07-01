@@ -46,12 +46,7 @@ export const authConfig = {
   adapter: PrismaAdapter(db),
   callbacks: {
     jwt: async ({ token, user }) => {
-      if (user) {
-        token.id = user.id;
-        token.email = user.email;
-        token.name = user.name;
-        token.image = user.image;
-      }
+      token.id = user.id;
       return token;
     },
     session: async ({ session, user }) => ({
@@ -59,9 +54,6 @@ export const authConfig = {
       user: {
         ...session.user,
         id: user.id,
-        email: user.email,
-        name: user.name,
-        image: user.image,
       },
     }),
   },

@@ -2,8 +2,8 @@
 
 import type { ReactNode } from "react";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { AppTopbar } from "./_components/AppTopbar";
 import { AppSidebar } from "./_components/AppSidebar";
+import { AppTopbar } from "./_components/AppTopbar";
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
   return (
