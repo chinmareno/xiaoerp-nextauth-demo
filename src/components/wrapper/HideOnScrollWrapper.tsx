@@ -14,14 +14,12 @@ export const HideOnScrollWrapper = ({ children }: Props) => {
     const prev = scrollY.getPrevious();
 
     if (prev === undefined) return;
-    console.log(current);
     if (current > prev && current != 0) {
       scrollDownDistance++;
       if (scrollDownDistance >= 60) setScrollDownTwice(true);
       else if (Math.abs(current - prev) >= 40) setScrollDownTwice(true);
     } else {
       scrollDownDistance = 0;
-      console.log("object");
       setScrollDownTwice(false);
     }
   });
