@@ -12,8 +12,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import type { Dispatch } from "react";
+import { useState, type Dispatch } from "react";
 import { api } from "@/trpc/react";
+import { useLoadingStore } from "@/hooks/useLoadingStore";
 
 const usernameSchema = z.object({
   username: z.string().min(1, "Username cannot be empty"),
@@ -22,11 +23,12 @@ const usernameSchema = z.object({
 type FormData = z.infer<typeof usernameSchema>;
 
 type Props = {
-  isOpen: boolean;
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const DialogChangeUsername = ({ isOpen, setIsOpen }: Props) => {
+export const DialogChangeUsername = ({ setIsOpen }: Props) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -35,17 +37,25 @@ export const DialogChangeUsername = ({ isOpen, setIsOpen }: Props) => {
   } = useForm<FormData>({
     resolver: zodResolver(usernameSchema),
   });
+
   const utils = api.useUtils();
+
+  const { resetLoading, setLoading } = useLoadingStore();
   const mutate = api.user.changeUsername.useMutation({
-    onSuccess: (updatedUser) => {
-      utils.user.getUser.setData(undefined, (oldData) => ({
-        ...oldData,
-        name: updatedUser.name,
-        image: oldData?.image ?? null,
-      }));
+    onMutate: () => {
+      setIsLoading(true);
+      resetLoading();
+      setLoading(30);
+    },
+    onSuccess: () => {
+      utils.user.getUser.invalidate();
+      setLoading(100);
+    },
+    onSettled() {
+      setIsLoading(false);
+      setTimeout(resetLoading, 300);
     },
   });
-
   const onSubmit = (data: FormData) => {
     mutate.mutate(data.username);
     reset();
@@ -53,7 +63,7 @@ export const DialogChangeUsername = ({ isOpen, setIsOpen }: Props) => {
   };
 
   return (
-    <Dialog open={isOpen}>
+    <Dialog open={true}>
       <DialogContent
         onXIconClick={() => setIsOpen(false)}
         className="sm:max-w-[425px]"
@@ -89,7 +99,9 @@ export const DialogChangeUsername = ({ isOpen, setIsOpen }: Props) => {
               Cancel
             </Button>
 
-            <Button type="submit">Save changes</Button>
+            <Button disabled={isLoading} type="submit">
+              Save changes
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>

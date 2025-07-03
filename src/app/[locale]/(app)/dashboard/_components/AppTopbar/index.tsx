@@ -23,6 +23,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { DialogChangeUsername } from "./DialogChangeUsername";
 import { useState } from "react";
 import { api } from "@/trpc/react";
+import { DialogChangePicture } from "./DialogChangePicture";
+import { useKeyboard } from "@/hooks/useKeyboard";
 
 export const AppTopbar = () => {
   const { data } = api.user.getUser.useQuery(undefined, {
@@ -31,6 +33,13 @@ export const AppTopbar = () => {
   const username = data?.name ?? "User";
   const [isDialogChangeUsernameOpen, setIsDialogChangeUsernameOpen] =
     useState(false);
+  const [isDialogChangePictureOpen, setIsDialogChangePictureOpen] =
+    useState(false);
+
+  useKeyboard(() => {
+    if (isDialogChangeUsernameOpen) setIsDialogChangeUsernameOpen(false);
+    if (isDialogChangePictureOpen) setIsDialogChangePictureOpen(false);
+  }, "Escape");
 
   return (
     <header className="bg-background flex h-16 shrink-0 items-center gap-2 border-b px-4">
@@ -64,7 +73,7 @@ export const AppTopbar = () => {
           <DropdownMenu>
             <DropdownMenuTrigger className="hover:cursor-pointer">
               <div className="flex items-center gap-3 select-none sm:mr-8">
-                <Avatar className="h-8 w-8">
+                <Avatar className="h-10 w-10">
                   {data?.image && <AvatarImage src={data?.image} />}
                   <AvatarFallback>
                     {username?.charAt(0)?.toUpperCase()}
@@ -86,10 +95,14 @@ export const AppTopbar = () => {
                     <UserIcon className="h-4 w-4" />
                     <span>Change Username</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+
+                  <DropdownMenuItem
+                    onClick={() => setIsDialogChangePictureOpen(true)}
+                  >
                     <ImageIcon className="h-4 w-4" />
                     <span>Change Profile Picture</span>
                   </DropdownMenuItem>
+
                   <DropdownMenuSeparator />
                   <DropdownMenuItem className="text-red-600 hover:text-red-700">
                     <LogOut className="h-4 w-4" />
@@ -101,10 +114,12 @@ export const AppTopbar = () => {
           </DropdownMenu>
         </div>
       </div>
-      <DialogChangeUsername
-        isOpen={isDialogChangeUsernameOpen}
-        setIsOpen={setIsDialogChangeUsernameOpen}
-      />
+      {isDialogChangeUsernameOpen && (
+        <DialogChangeUsername setIsOpen={setIsDialogChangeUsernameOpen} />
+      )}
+      {isDialogChangePictureOpen && (
+        <DialogChangePicture setIsOpen={setIsDialogChangePictureOpen} />
+      )}
     </header>
   );
 };
