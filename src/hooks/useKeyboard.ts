@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export const useKeyboard = (callback: Function, key: string) => {
+export const useKeyboard = (callback: () => void, key: string) => {
   useEffect(() => {
     const handleKeydown = (event: KeyboardEvent) => {
       if (event.key === key) {
@@ -12,5 +12,5 @@ export const useKeyboard = (callback: Function, key: string) => {
     return () => {
       window.removeEventListener("keydown", handleKeydown);
     };
-  }, [callback]);
+  }, [callback, key]);
 };

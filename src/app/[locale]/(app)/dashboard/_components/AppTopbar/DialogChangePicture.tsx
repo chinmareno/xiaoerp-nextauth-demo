@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { type z } from "zod";
 import React, { useState, useEffect, type Dispatch } from "react";
 import {
   Dialog,
@@ -71,8 +71,8 @@ export const DialogChangePicture = ({ setIsOpen }: Props) => {
       resetLoading();
       setLoading(80);
     },
-    onSuccess: () => {
-      utils.user.getUser.invalidate();
+    onSuccess: async () => {
+      await utils.user.getUser.invalidate();
       setLoading(100);
     },
     onSettled() {
@@ -92,7 +92,6 @@ export const DialogChangePicture = ({ setIsOpen }: Props) => {
       const url = res[0]?.ufsUrl;
       if (!key || !url) return;
       mutate.mutate({ key, url });
-      utils.user.getUser.invalidate();
       setLoading(60);
     },
     onUploadError: () => {

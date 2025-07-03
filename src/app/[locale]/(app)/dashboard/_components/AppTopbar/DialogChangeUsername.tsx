@@ -47,8 +47,8 @@ export const DialogChangeUsername = ({ setIsOpen }: Props) => {
       resetLoading();
       setLoading(30);
     },
-    onSuccess: () => {
-      utils.user.getUser.invalidate();
+    onSuccess: async () => {
+      await utils.user.getUser.invalidate();
       setLoading(100);
     },
     onSettled() {

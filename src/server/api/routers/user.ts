@@ -47,7 +47,7 @@ export const userRouter = createTRPCRouter({
         select: { imageKey: true },
       });
       if (isFound?.imageKey) {
-        utapi.deleteFiles(isFound.imageKey);
+        await utapi.deleteFiles(isFound.imageKey);
       }
       await ctx.db.user.update({
         data: {
