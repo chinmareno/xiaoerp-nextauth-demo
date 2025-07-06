@@ -25,6 +25,7 @@ import { useState } from "react";
 import { api } from "@/trpc/react";
 import { DialogChangePicture } from "./DialogChangePicture";
 import { useKeyboard } from "@/hooks/useKeyboard";
+import { signOut } from "next-auth/react";
 
 export const AppTopbar = () => {
   const { data } = api.user.getUser.useQuery(undefined, {
@@ -104,7 +105,12 @@ export const AppTopbar = () => {
                   </DropdownMenuItem>
 
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem className="text-red-600 hover:text-red-700">
+                  <DropdownMenuItem
+                    onClick={async () =>
+                      await signOut({ redirectTo: "/login" })
+                    }
+                    className="text-red-600 hover:text-red-700"
+                  >
                     <LogOut className="h-4 w-4" />
                     <span>Sign Out</span>
                   </DropdownMenuItem>

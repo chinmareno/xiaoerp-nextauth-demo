@@ -32,35 +32,30 @@ model Account {
     user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
     refresh_token_expires_in Int?
 
+    @@unique([userId, provider]) 
     @@unique([provider, providerAccountId])
-}
-
-model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
     id            String    @id @default(cuid())
+    email         String    @unique
     name          String    
-    email         String?   @unique
     emailVerified DateTime?
     image         String?
     imageKey      String? 
     accounts      Account[]
-    sessions      Session[]
-    companies      CompanyMember[]
+    companies     CompanyMember[]
 }
 
-model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
-
-    @@unique([identifier, token])
+// Prevent linking OAuth accounts to the user table
+model UserCredential {
+    id            String    @id @default(cuid())
+    email         String    @unique
+    password      String
+    name          String    
+    image         String?
+    imageKey      String? 
+    companies     CompanyMember[]
 }
 
 model Company {
@@ -69,21 +64,33 @@ model Company {
   description String?
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
-  departments  Department[] @default([FINANCE,INVENTORY,SALES,PURCHASING])
+  departments Department[]   @default([FINANCE,INVENTORY,SALES,PURCHASING])
   memberships CompanyMember[]
 }
 
 model CompanyMember {
-  id        String   @id @default(cuid())
-  userId    String
-  companyId String
-  role      Role     @default(MEMBER)
-  joinedAt  DateTime @default(now())
-  permissions String[] @default([])
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                  String          @id @default(cuid())
+  userId              String?
+  userCredentialId    String?
+  companyId           String
+  role                Role            @default(MEMBER)
+  joinedAt            DateTime        @default(now())
+  permissions         CompanyPermission[]
+  user                User?           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userCredential    UserCredential?   @relation(fields: [userCredentialId], references: [id], onDelete: Cascade)
   company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
 
   @@unique([userId, companyId]) 
+}
+
+model CompanyPermission {
+  id              String        @id @default(cuid())
+  memberId        String
+  department      Department
+  permission      Permission
+  member          CompanyMember @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@unique([memberId, department])
 }
 
 enum Role {

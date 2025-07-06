@@ -5,6 +5,7 @@ import { Geist } from "next/font/google";
 
 import { TRPCReactProvider } from "@/trpc/react";
 import { Analytics } from "@vercel/analytics/next";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Xiao ERP | Simple & Efficient ERP System for Small Businesses",
@@ -37,7 +38,8 @@ export default function RootLayout({
       <body>
         <TRPCReactProvider>
           {children}
-          <Analytics mode="production" />
+          <Toaster visibleToasts={2} richColors position="top-right" />
+          {process.env.NODE_ENV === "production" && <Analytics />}
         </TRPCReactProvider>
       </body>
     </html>

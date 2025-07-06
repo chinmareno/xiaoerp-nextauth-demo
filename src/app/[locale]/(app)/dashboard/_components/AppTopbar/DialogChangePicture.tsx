@@ -17,19 +17,18 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { api } from "@/trpc/react";
-import { imageSchema } from "@/schema/imageSchema";
+import { getImageSchema } from "@/schema/imageSchema";
 import { useUploadThing } from "@/lib/uploadthing";
 import { useLoadingStore } from "@/hooks/useLoadingStore";
-
-type FormData = z.infer<typeof imageSchema>;
 
 type Props = {
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const DialogChangePicture = ({ setIsOpen }: Props) => {
+  const imageSchema = getImageSchema();
+  type FormData = z.infer<typeof imageSchema>;
   const [isLoading, setIsLoading] = useState(false);
-
   const {
     register,
     handleSubmit,
