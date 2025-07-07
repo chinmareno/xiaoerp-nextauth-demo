@@ -19,8 +19,6 @@ import { verifyPassword } from "../../lib/bcrypt";
  */
 declare module "next-auth" {
   interface Session extends DefaultSession {
-    id: string;
-    isCredential: boolean;
     user: {
       id: string;
       isCredential?: boolean;

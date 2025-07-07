@@ -7,7 +7,7 @@ import {
 } from "@/server/api/trpc";
 import { utapi } from "@/server/uploadthing";
 import { TRPCError } from "@trpc/server";
-import { hashPassword } from "@/lib/bcrypt";
+import { hashPassword, verifyPassword } from "@/lib/bcrypt";
 
 export const userRouter = createTRPCRouter({
   createUser: publicProcedure
@@ -136,5 +136,43 @@ export const userRouter = createTRPCRouter({
             },
             select: { id: true },
           }));
+    }),
+
+  verifyPassword: protectedProcedure
+    .input(
+      z.object({
+        password: z.string().min(8, "Password must be at least 8 characters"),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const currentPassword = await ctx.db.userCredential.findUnique({
+        where: { id: ctx.session.user.id },
+        select: { password: true },
+      });
+      if (currentPassword) {
+        const isVerified = await verifyPassword(
+          input.password,
+          currentPassword.password,
+        );
+        return isVerified;
+      }
+    }),
+
+  changePassword: protectedProcedure
+    .input(
+      z.object({
+        password: z
+          .string()
+          .min(8)
+          .refine((val) => /[A-Z]/.test(val))
+          .refine((val) => /[a-z]/.test(val))
+          .refine((val) => /\d/.test(val)),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.userCredential.update({
+        where: { id: ctx.session.user.id },
+        data: { password: input.password },
+      });
     }),
 });

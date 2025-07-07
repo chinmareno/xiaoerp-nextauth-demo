@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Circle, CircleCheck } from "lucide-react";
+import { Check, Dot } from "lucide-react";
 import { api } from "@/trpc/react";
 import { toast } from "sonner";
 import { TRPCClientError } from "@trpc/client";
@@ -138,33 +138,33 @@ const SignupPage = () => {
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   {/[a-z]/.test(passwordValue) ? (
-                    <CircleCheck className="h-4 w-4 text-green-600" />
+                    <Check className="h-4 w-4 text-green-600" />
                   ) : (
-                    <Circle className="h-4 w-4" />
+                    <Dot className="h-4 w-4" />
                   )}
                   <p className="text-sm">One lowercase character</p>
                 </div>
                 <div className="flex items-center gap-2">
                   {/[A-Z]/.test(passwordValue) ? (
-                    <CircleCheck className="h-4 w-4 text-green-600" />
+                    <Check className="h-4 w-4 text-green-600" />
                   ) : (
-                    <Circle className="h-4 w-4" />
+                    <Dot className="h-4 w-4" />
                   )}
                   <p className="text-sm">One uppercase character</p>
                 </div>
                 <div className="flex items-center gap-2">
                   {/\d/.test(passwordValue) ? (
-                    <CircleCheck className="h-4 w-4 text-green-600" />
+                    <Check className="h-4 w-4 text-green-600" />
                   ) : (
-                    <Circle className="h-4 w-4" />
+                    <Dot className="h-4 w-4" />
                   )}
                   <p className="text-sm">Includes a number</p>
                 </div>
                 <div className="flex items-center gap-2">
                   {passwordValue.length >= 8 ? (
-                    <CircleCheck className="h-4 w-4 text-green-600" />
+                    <Check className="h-4 w-4 text-green-600" />
                   ) : (
-                    <Circle className="h-4 w-4" />
+                    <Dot className="h-4 w-4" />
                   )}
                   <p className="text-sm">8 characters minimum</p>
                 </div>
@@ -180,7 +180,7 @@ const SignupPage = () => {
               />
               {errors.confirmPassword &&
                 passwordValue !== confirmPasswordValue && (
-                  <p className="text-sm text-red-600">Password do not match</p>
+                  <p className="text-sm text-red-600">Passwords do not match</p>
                 )}
             </div>
 

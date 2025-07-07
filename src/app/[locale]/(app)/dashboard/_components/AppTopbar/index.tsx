@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, ImageIcon, LogOut, UserIcon } from "lucide-react";
+import { Bell, ImageIcon, KeyRound, LogOut, UserIcon } from "lucide-react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import {
   Breadcrumb,
@@ -25,21 +25,29 @@ import { useState } from "react";
 import { api } from "@/trpc/react";
 import { DialogChangePicture } from "./DialogChangePicture";
 import { useKeyboard } from "@/hooks/useKeyboard";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import { DialogChangePassword } from "./DialogChangePassword";
 
 export const AppTopbar = () => {
-  const { data } = api.user.getUser.useQuery(undefined, {
-    placeholderData: { name: "User", image: null },
-  });
-  const username = data?.name ?? "User";
   const [isDialogChangeUsernameOpen, setIsDialogChangeUsernameOpen] =
     useState(false);
   const [isDialogChangePictureOpen, setIsDialogChangePictureOpen] =
     useState(false);
+  const [isUploadPicture, setIsUploadPicture] = useState(false);
+  const [isDialogChangePassword, setIsDialogChangePasswordOpen] =
+    useState(false);
+
+  const { data: session } = useSession();
+
+  const { data } = api.user.getUser.useQuery(undefined, {
+    placeholderData: { name: "User", image: null },
+  });
+  const username = data?.name ?? "User";
 
   useKeyboard(() => {
     if (isDialogChangeUsernameOpen) setIsDialogChangeUsernameOpen(false);
     if (isDialogChangePictureOpen) setIsDialogChangePictureOpen(false);
+    if (isDialogChangePassword) setIsDialogChangePasswordOpen(false);
   }, "Escape");
 
   return (
@@ -103,6 +111,14 @@ export const AppTopbar = () => {
                     <ImageIcon className="h-4 w-4" />
                     <span>Change Profile Picture</span>
                   </DropdownMenuItem>
+                  {session?.user.isCredential && (
+                    <DropdownMenuItem
+                      onClick={() => setIsDialogChangePasswordOpen(true)}
+                    >
+                      <KeyRound className="h-4 w-4" />
+                      <span>Change Password</span>
+                    </DropdownMenuItem>
+                  )}
 
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
@@ -124,7 +140,14 @@ export const AppTopbar = () => {
         <DialogChangeUsername setIsOpen={setIsDialogChangeUsernameOpen} />
       )}
       {isDialogChangePictureOpen && (
-        <DialogChangePicture setIsOpen={setIsDialogChangePictureOpen} />
+        <DialogChangePicture
+          isUploadPicture={isUploadPicture}
+          setIsUploadPicture={setIsUploadPicture}
+          setIsOpen={setIsDialogChangePictureOpen}
+        />
+      )}
+      {isDialogChangePassword && (
+        <DialogChangePassword setIsOpen={setIsDialogChangePasswordOpen} />
       )}
     </header>
   );

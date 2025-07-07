@@ -84,9 +84,7 @@ export const DialogChangeUsername = ({ setIsOpen }: Props) => {
               placeholder="Enter new username"
             />
             {errors.username && (
-              <span className="text-xs text-red-500">
-                {errors.username.message}
-              </span>
+              <p className="text-xs text-red-500">{errors.username.message}</p>
             )}
           </div>
 
