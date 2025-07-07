@@ -10,6 +10,21 @@ import { TRPCError } from "@trpc/server";
 import { hashPassword, verifyPassword } from "@/lib/bcrypt";
 
 export const userRouter = createTRPCRouter({
+  verifyUserSession: protectedProcedure.query(async ({ ctx }) => {
+    const isCredential = ctx.session.user.isCredential;
+    const isExist = isCredential
+      ? await ctx.db.userCredential.findUnique({
+          where: { id: ctx.session.user.id },
+          select: { id: true },
+        })
+      : await ctx.db.user.findUnique({
+          where: { id: ctx.session.user.id },
+          select: { id: true },
+        });
+
+    return isExist;
+  }),
+
   createUser: publicProcedure
     .input(
       z.object({
@@ -170,9 +185,28 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      const oldPassword = await ctx.db.userCredential.findUnique({
+        where: { id: ctx.session.user.id },
+        select: { password: true },
+      });
+
+      if (oldPassword) {
+        const isSamePassword = await verifyPassword(
+          input.password,
+          oldPassword.password,
+        );
+        if (isSamePassword)
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "New password must be different from the old password",
+          });
+      }
+
+      const hashedPassword = await hashPassword(input.password);
+
       await ctx.db.userCredential.update({
         where: { id: ctx.session.user.id },
-        data: { password: input.password },
+        data: { password: hashedPassword },
       });
     }),
 });

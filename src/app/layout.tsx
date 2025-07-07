@@ -38,7 +38,7 @@ export default function RootLayout({
       <body>
         <TRPCReactProvider>
           {children}
-          <Toaster visibleToasts={1} richColors position="top-right" />
+          <Toaster visibleToasts={1} richColors position="bottom-right" />
           {process.env.NODE_ENV === "production" && <Analytics />}
         </TRPCReactProvider>
       </body>

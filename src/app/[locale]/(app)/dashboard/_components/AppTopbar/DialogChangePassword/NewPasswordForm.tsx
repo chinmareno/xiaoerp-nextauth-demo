@@ -38,7 +38,7 @@ type Props = {
 
 export const NewPasswordForm = ({ handleClose }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { resetLoading, setLoading } = useLoadingStore();
+  const { startLoading, finishLoading } = useLoadingStore();
 
   const {
     register,
@@ -59,27 +59,29 @@ export const NewPasswordForm = ({ handleClose }: Props) => {
   const mutate = api.user.changePassword.useMutation({
     onMutate: () => {
       setIsLoading(true);
-      resetLoading();
-      setLoading(30);
+      startLoading();
     },
     onSuccess: () => {
-      setLoading(100);
       toast.success("Password changed successfully!");
       handleClose();
+      reset();
     },
-    onError: () => {
-      toast.error("Failed to change password. Please try again");
+    onError: (e) => {
+      const code = e.data?.code;
+      if (code === "BAD_REQUEST") {
+        toast.error("New password must be different from the old password");
+      } else {
+        console.log("TRPCClientError in newPasswordForm:   ", e);
+      }
     },
     onSettled() {
       setIsLoading(false);
-      setTimeout(resetLoading, 300);
+      finishLoading();
     },
   });
 
   const onSubmit = (data: FormData) => {
     mutate.mutate(data);
-    handleClose();
-    reset();
   };
 
   return (

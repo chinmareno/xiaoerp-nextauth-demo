@@ -34,7 +34,7 @@ export const DialogChangePicture = ({
   isUploadPicture,
   setIsUploadPicture,
 }: Props) => {
-  const { resetLoading, setLoading } = useLoadingStore();
+  const { setLoading, resetLoading, finishLoading } = useLoadingStore();
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
 
   const imageSchema = getImageSchema();
@@ -75,49 +75,47 @@ export const DialogChangePicture = ({
     setIsOpen(false);
   };
 
-  const utils = api.useUtils();
-
-  const mutate = api.user.changeProfilePicture.useMutation({
-    onMutate: () => {
-      setIsUploadPicture(true);
-      resetLoading();
-      setLoading(80);
-    },
-    onSuccess: async () => {
-      await utils.user.getUser.invalidate();
-      setLoading(100);
-    },
-    onSettled() {
-      setIsUploadPicture(false);
-      setTimeout(resetLoading, 300);
-    },
-  });
-
   const { startUpload, isUploading } = useUploadThing("profilePicture", {
     onUploadBegin: () => {
       resetLoading();
-      setLoading(40);
+      setLoading(30);
       setIsOpen(false);
       reset();
     },
     onClientUploadComplete: (res) => {
       const key = res[0]?.key;
       const url = res[0]?.ufsUrl;
-      if (!key || !url) return;
+      if (!key || !url) return finishLoading();
+      setLoading(65);
       mutate.mutate({ key, url });
-      setLoading(60);
     },
+
     onUploadError: () => {
       toast.error("Failed to change profile picture. Please try again.");
       setIsUploadPicture(false);
-      resetLoading();
+    },
+  });
+
+  const utils = api.useUtils();
+
+  const mutate = api.user.changeProfilePicture.useMutation({
+    onMutate: () => {
+      setLoading(80);
+      setIsUploadPicture(true);
+    },
+    onSuccess: async () => {
+      await utils.user.getUser.invalidate();
+      toast.success("Profile picture updated successfully!");
+    },
+    onSettled() {
+      setIsUploadPicture(false);
+      finishLoading();
     },
   });
 
   const onSubmit = async (image: FormData) => {
     if (isUploading || isUploadPicture)
       return toast.error("Upload in progress, please wait.");
-    setLoading(20);
     setIsUploadPicture(true);
     const file = image.image[0];
     if (!file || !(file instanceof File))
@@ -126,8 +124,11 @@ export const DialogChangePicture = ({
   };
 
   return (
-    <Dialog open={true} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-[425px]">
+    <Dialog open={true}>
+      <DialogContent
+        onXIconClick={() => setIsOpen(false)}
+        className="sm:max-w-[425px]"
+      >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <DialogHeader>
             <DialogTitle>Edit image</DialogTitle>

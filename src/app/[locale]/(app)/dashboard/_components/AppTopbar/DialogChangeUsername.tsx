@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { useState, type Dispatch } from "react";
 import { api } from "@/trpc/react";
 import { useLoadingStore } from "@/hooks/useLoadingStore";
+import { toast } from "sonner";
 
 const usernameSchema = z.object({
   username: z.string().min(1, "Username cannot be empty"),
@@ -40,20 +41,19 @@ export const DialogChangeUsername = ({ setIsOpen }: Props) => {
 
   const utils = api.useUtils();
 
-  const { resetLoading, setLoading } = useLoadingStore();
+  const { startLoading, finishLoading } = useLoadingStore();
   const mutate = api.user.changeUsername.useMutation({
     onMutate: () => {
       setIsLoading(true);
-      resetLoading();
-      setLoading(30);
+      startLoading();
     },
     onSuccess: async () => {
       await utils.user.getUser.invalidate();
-      setLoading(100);
+      toast.success("Username updated successfully!");
     },
     onSettled() {
       setIsLoading(false);
-      setTimeout(resetLoading, 300);
+      finishLoading();
     },
   });
   const onSubmit = (data: FormData) => {

@@ -27,7 +27,7 @@ type Props = {
 
 export const CurrrentPasswordForm = ({ handleClose, setIsVerified }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { resetLoading, setLoading } = useLoadingStore();
+  const { startLoading, finishLoading } = useLoadingStore();
 
   const {
     register,
@@ -42,18 +42,24 @@ export const CurrrentPasswordForm = ({ handleClose, setIsVerified }: Props) => {
   const mutate = api.user.verifyPassword.useMutation({
     onMutate: () => {
       setIsLoading(true);
-      resetLoading();
-      setLoading(30);
-    },
-    onSuccess: async () => {
-      setLoading(100);
+      startLoading();
     },
     onSettled() {
       setIsLoading(false);
-      setTimeout(resetLoading, 300);
+      finishLoading();
     },
   });
   const onSubmit = async (data: FormData) => {
+    if (
+      !/[A-Z]/.test(data.password) ||
+      !/[a-z]/.test(data.password) ||
+      !/\d/.test(data.password)
+    ) {
+      return setError("password", {
+        message: "Incorrect password. Please try again.",
+      });
+    }
+
     const isVerified = await mutate.mutateAsync({ password: data.password });
     if (!isVerified)
       return setError("password", {
