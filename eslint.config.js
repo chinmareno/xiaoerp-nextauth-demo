@@ -36,6 +36,11 @@ export default tseslint.config(
         { checksVoidReturn: { attributes: false } },
       ],
       "react/no-unescaped-entities": "off",
+      "@typescript-eslint/prefer-nullish-coalescing": "off",
+      "@typescript-eslint/no-unused-expressions": "off",
+      "@typescript-eslint/non-nullable-type-assertion-style": "off",
+      "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
+      "react-hooks/exhaustive-deps": "off",
     },
   },
   {

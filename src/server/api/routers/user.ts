@@ -8,6 +8,8 @@ import {
 import { utapi } from "@/server/uploadthing";
 import { TRPCError } from "@trpc/server";
 import { hashPassword, verifyPassword } from "@/lib/bcrypt";
+import type { Language } from "@prisma/client";
+import { cookies } from "next/headers";
 
 export const userRouter = createTRPCRouter({
   verifyUserSession: protectedProcedure.query(async ({ ctx }) => {
@@ -52,11 +54,14 @@ export const userRouter = createTRPCRouter({
       }
       const temporaryUsername = input.email.split("@")[0]!;
       const hashedPassword = await hashPassword(input.password);
+      const cookieLanguage = (await cookies()).get("Next-Locale")
+        ?.value as Language;
       await ctx.db.userCredential.create({
         data: {
           name: temporaryUsername,
           email: input.email.toLowerCase(),
           password: hashedPassword,
+          language: cookieLanguage,
         },
         select: { id: true },
       });
@@ -67,12 +72,14 @@ export const userRouter = createTRPCRouter({
     const user = isCredential
       ? await ctx.db.userCredential.findUnique({
           where: { id: ctx.session.user.id },
-          select: { name: true, image: true },
+          select: { name: true, image: true, language: true },
         })
       : await ctx.db.user.findUnique({
           where: { id: ctx.session.user.id },
-          select: { name: true, image: true },
+          select: { name: true, image: true, language: true },
         });
+    if (!user)
+      throw new TRPCError({ code: "NOT_FOUND", message: "User not found" });
 
     return user;
   }),
@@ -208,5 +215,32 @@ export const userRouter = createTRPCRouter({
         where: { id: ctx.session.user.id },
         data: { password: hashedPassword },
       });
+    }),
+
+  changeLanguage: protectedProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      const isCredential = ctx.session.user.isCredential;
+      const localeLanguage = input as Language;
+
+      void (isCredential
+        ? await ctx.db.userCredential.update({
+            data: {
+              language: localeLanguage,
+            },
+            where: {
+              id: ctx.session.user.id,
+            },
+            select: { id: true },
+          })
+        : await ctx.db.user.update({
+            data: {
+              language: localeLanguage,
+            },
+            where: {
+              id: ctx.session.user.id,
+            },
+            select: { id: true },
+          }));
     }),
 });

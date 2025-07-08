@@ -22,6 +22,7 @@ import { TRPCClientError } from "@trpc/client";
 import { useEffect } from "react";
 import { GoogleAuthButton } from "../_components/GoogleAuthButton";
 import Link from "next/link";
+import { useScopedI18n } from "@/app/public/locales/client";
 
 const signupSchema = z
   .object({
@@ -43,6 +44,8 @@ type SignUpSchema = z.infer<typeof signupSchema>;
 const SignupPage = () => {
   const router = useRouter();
   const session = useSession();
+  const scopedT = useScopedI18n("auth.signup");
+
   useEffect(() => {
     router.prefetch("/dashboard");
     if (session.status === "authenticated") {
@@ -77,8 +80,9 @@ const SignupPage = () => {
           onError: (e) => {
             const code = e.data?.code;
             if (code === "CONFLICT") {
-              toast.error("A user with this email already exists");
+              toast.error(scopedT("error.emailExist"));
             } else {
+              toast.error(scopedT("error.uncaughtError"));
               console.log("TRPCClientError on Signup:   ", e);
             }
           },
@@ -91,13 +95,17 @@ const SignupPage = () => {
       });
       if (res && !res?.error) {
         router.push("/dashboard");
+        toast.success(scopedT("accountCreated"));
       } else {
-        toast.success("Account created successfully! Please login.");
+        toast.success(scopedT("accountCreatedLogin"));
         router.push("/login");
       }
     } catch (e) {
       const trpcError = e instanceof TRPCClientError;
-      if (!trpcError) console.log("UncaughtError on Signup:   ", e);
+      if (!trpcError) {
+        console.log("UncaughtError on Signup:   ", e);
+        toast.error(scopedT("error.uncaughtError"));
+      }
     }
   };
 
@@ -105,34 +113,38 @@ const SignupPage = () => {
     <div className="flex h-screen w-screen items-center justify-center pb-[10.5vh]">
       <Card className="mx-auto w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">Create Account</CardTitle>
-          <CardDescription>Signup to get started</CardDescription>
+          <CardTitle className="text-2xl font-bold">
+            {scopedT("title")}
+          </CardTitle>
+          <CardDescription>{scopedT("desc")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{scopedT("emailLabel")}</Label>
               <Input
                 id="email"
                 type="text"
-                placeholder="Enter your email"
+                placeholder={scopedT("emailPlaceholder")}
                 {...register("email")}
               />
               {errors.email && (
-                <p className="text-sm text-red-600">{errors.email.message}</p>
+                <p className="text-sm text-red-600">
+                  {scopedT("error.invalidEmail")}
+                </p>
               )}
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{scopedT("passwordLabel")}</Label>
               <Input
                 id="password"
                 type="password"
-                placeholder="Enter your password"
+                placeholder={scopedT("passwordPlaceholder")}
                 {...register("password")}
               />
               {errors.password && (
                 <p className="text-sm text-red-600">
-                  Password does not meet requirements
+                  {scopedT("error.invalidPassword")}
                 </p>
               )}
               <div className="space-y-1">
@@ -142,7 +154,9 @@ const SignupPage = () => {
                   ) : (
                     <Dot className="h-4 w-4" />
                   )}
-                  <p className="text-sm">One lowercase character</p>
+                  <p className="text-sm">
+                    {scopedT("passwordRequirement.oneLowerCase")}
+                  </p>
                 </div>
                 <div className="flex items-center gap-2">
                   {/[A-Z]/.test(passwordValue) ? (
@@ -150,7 +164,9 @@ const SignupPage = () => {
                   ) : (
                     <Dot className="h-4 w-4" />
                   )}
-                  <p className="text-sm">One uppercase character</p>
+                  <p className="text-sm">
+                    {scopedT("passwordRequirement.oneUpperCase")}
+                  </p>
                 </div>
                 <div className="flex items-center gap-2">
                   {/\d/.test(passwordValue) ? (
@@ -158,7 +174,9 @@ const SignupPage = () => {
                   ) : (
                     <Dot className="h-4 w-4" />
                   )}
-                  <p className="text-sm">Includes a number</p>
+                  <p className="text-sm">
+                    {scopedT("passwordRequirement.includeNumber")}
+                  </p>
                 </div>
                 <div className="flex items-center gap-2">
                   {passwordValue.length >= 8 ? (
@@ -166,26 +184,38 @@ const SignupPage = () => {
                   ) : (
                     <Dot className="h-4 w-4" />
                   )}
-                  <p className="text-sm">8 characters minimum</p>
+                  <p className="text-sm">
+                    {scopedT("passwordRequirement.minChar")}
+                  </p>
                 </div>
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="confirm password">Confirm Password</Label>
+              <Label htmlFor="confirm password">
+                {scopedT("confirmPasswordLabel")}
+              </Label>
               <Input
                 id="confirm password"
                 type="password"
-                placeholder="Enter your password"
+                placeholder={scopedT("confirmPasswordPlaceholder")}
                 {...register("confirmPassword")}
               />
               {errors.confirmPassword &&
                 passwordValue !== confirmPasswordValue && (
-                  <p className="text-sm text-red-600">Passwords do not match</p>
+                  <p className="text-sm text-red-600">
+                    {scopedT("error.invalidConfirmPassword")}
+                  </p>
                 )}
             </div>
 
-            <Button type="submit" className="w-full">
-              Sign Up
+            <Button
+              disabled={
+                mutate.status === "pending" || mutate.status === "success"
+              }
+              type="submit"
+              className="w-full"
+            >
+              {scopedT("signupButton")}
             </Button>
           </form>
           <div className="relative">
@@ -194,17 +224,17 @@ const SignupPage = () => {
             </div>
             <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-card text-muted-foreground px-2">
-                or Sign up with
+                {scopedT("separator")}
               </span>
             </div>
           </div>
-          <GoogleAuthButton text="Continue with Google" />
+          <GoogleAuthButton text={scopedT("googleButton")} />
           <div className="text-center text-sm">
             <span className="text-muted-foreground">
-              Already have an account?{" "}
+              {scopedT("haveAccount")}
             </span>
             <Button asChild variant="link" className="h-auto p-0 font-normal">
-              <Link href="/login">Login</Link>
+              <Link href="/login">{scopedT("loginLink")}</Link>
             </Button>
           </div>
         </CardContent>

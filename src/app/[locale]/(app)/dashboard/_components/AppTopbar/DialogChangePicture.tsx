@@ -15,13 +15,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { api } from "@/trpc/react";
 import { getImageSchema } from "@/schema/imageSchema";
 import { useUploadThing } from "@/lib/uploadthing";
 import { useLoadingStore } from "@/hooks/useLoadingStore";
 import { toast } from "sonner";
 import { PencilIcon } from "lucide-react";
+import { useCurrentLocale } from "@/app/public/locales/client";
+import defaultAvatar from "src/app/public/avatar/default_profile.png";
+import Image from "next/image";
 
 type Props = {
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
@@ -51,11 +54,21 @@ export const DialogChangePicture = ({
   });
 
   const previewImage = watch("image")?.[0];
+  const currentLocale = useCurrentLocale();
 
   const { data } = api.user.getUser.useQuery(undefined, {
-    placeholderData: { name: "User", image: null },
+    placeholderData: (staleData) => {
+      if (staleData) {
+        return { ...staleData, language: currentLocale };
+      } else {
+        return {
+          name: "User",
+          image: null,
+          language: currentLocale,
+        };
+      }
+    },
   });
-  const username = data?.name ?? "User";
 
   useEffect(() => {
     if (previewImage) {
@@ -153,11 +166,10 @@ export const DialogChangePicture = ({
                 {previewImageUrl ? (
                   <AvatarImage src={previewImageUrl} />
                 ) : (
-                  <AvatarFallback>
-                    {username?.charAt(0)?.toUpperCase()}
-                  </AvatarFallback>
+                  <Image src={defaultAvatar} alt="avatar" />
                 )}
               </Avatar>
+
               <PencilIcon className="absolute top-3 right-3 z-50 h-7 w-7 rounded-full bg-black/60 p-1 text-slate-200" />
             </Label>
             {errors.root && (

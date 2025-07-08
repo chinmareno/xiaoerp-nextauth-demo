@@ -61,7 +61,6 @@ export const ModulesOverviewCard = ({
         className="mt-auto w-11/12 self-center bg-black text-white transition-colors hover:cursor-pointer hover:bg-black/85 hover:text-white"
       >
         <Link href={learnMoreHref}>
-          {" "}
           {t("landingPage.rootPath.moduleOverview.learnMoreButton")}
         </Link>
       </Button>

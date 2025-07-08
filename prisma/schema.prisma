@@ -43,6 +43,7 @@ model User {
     emailVerified DateTime?
     image         String?
     imageKey      String? 
+    language      Language    @default(en)
     accounts      Account[]
     companies     CompanyMember[]
 }
@@ -54,7 +55,8 @@ model UserCredential {
     password      String
     name          String    
     image         String?
-    imageKey      String? 
+    imageKey      String?   
+    language      Language  @default(en)
     companies     CompanyMember[]
 }
 
@@ -109,4 +111,10 @@ enum Department {
   INVENTORY
   SALES
   PURCHASING
+}
+
+enum Language {
+  en
+  zh
+  id
 }
